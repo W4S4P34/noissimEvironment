@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Boss
-  - Minion
   - Boundary
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,7 +19,7 @@ TagManager:
   - 
   - Wall
   - Obstacle
-  - 
+  - Bullet
   - 
   - 
   - 
