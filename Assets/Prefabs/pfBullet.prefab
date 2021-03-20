@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -5478155700546876539}
   - component: {fileID: 2264666517422502610}
   - component: {fileID: 2692594171627501959}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: pfBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c81c6aaf32eb5e478504004b40dad09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletStat: {fileID: 11400000, guid: 3c0f250292b28ea429bf21bf9a309c35, type: 2}
 --- !u!50 &2264666517422502610
 Rigidbody2D:
   serializedVersion: 4
@@ -103,7 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6169180094792513201}
   - component: {fileID: 4654691402013017165}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
