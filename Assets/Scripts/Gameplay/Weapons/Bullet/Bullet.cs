@@ -9,15 +9,12 @@ public class Bullet : MonoBehaviour, IEntityDamageEvent
     #region Protected Fields
     [SerializeField]
     protected BulletStats bulletStat;
-    protected Vector3 shootDirection;
     protected new Rigidbody2D rigidbody2D;
     #endregion
 
     #region Private Fields
     private bool isCrit;
-    private int damageAmount;
     #endregion
-
 
     #region Monobehaviour Methods
     private void OnTriggerEnter2D(Collider2D collision)
@@ -34,6 +31,7 @@ public class Bullet : MonoBehaviour, IEntityDamageEvent
             return;
         var entity = collision.GetComponent<Entity>();
         entity?.OnTakeDamage(this);
+        isCrit = false;
         ObjectPool.ReturnObject(bulletStat.bulletCode, gameObject);
         gameObject.SetActive(false);
     }
@@ -41,10 +39,11 @@ public class Bullet : MonoBehaviour, IEntityDamageEvent
 
     #region Public Methods
     // Function apply projectile force for bullet
-    public void Setup(Vector3 shootDirection)
+    public void Setup(Vector3 shootDirection, bool isCrit = false)
     {
         if (!rigidbody2D)
             rigidbody2D = GetComponent<Rigidbody2D>();
+        this.isCrit = isCrit;
         Debug.Log("Before reset: " + rigidbody2D.velocity);
         rigidbody2D.velocity = Vector2.zero;
         rigidbody2D.angularVelocity = 0f;
@@ -55,7 +54,7 @@ public class Bullet : MonoBehaviour, IEntityDamageEvent
     public float GetDamage(ref bool isCrit)
     {
         // Pseudo Crit & Damage System Demo
-        isCrit = Random.Range(0, 100) < bulletStat.critChance;
+        isCrit = this.isCrit;
         return isCrit == true ? bulletStat.damage * 2f : bulletStat.damage;
     }
     public ObjectPoolCode GetBulletCode()

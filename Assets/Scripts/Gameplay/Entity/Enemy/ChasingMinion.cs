@@ -12,7 +12,7 @@ public abstract class ChasingMinion : Enemy
 {
     #region Protected Fields
     [Header("GENERAL FIELDS")]
-    [SerializeField]
+    [SerializeField, Range(1f, 10f)]
     protected float attackRange = 2f;
     [SerializeField]
     protected AttackType attackType;
@@ -73,7 +73,7 @@ public abstract class ChasingMinion : Enemy
     protected virtual void LongRangeAttack()
     { }
 
-    protected virtual void ApplyForceBullet(Vector3 shootDirection)
+    protected virtual void Shoot(Vector3 shootDirection)
     {
         var _bullet = ObjectPool.GetObject(pfBullet.GetBulletCode());
         _bullet.SetActive(true);

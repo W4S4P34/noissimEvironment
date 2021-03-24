@@ -8,8 +8,6 @@ public class BulletStats : ScriptableObject
 {
     [Range(0f, 1000f)]
     public float damage = 50f;
-    [Range(0, 100)]
-    public int critChance = 0;
     [Range(0f, 10f)]
     public float repulsiveForce = 0f;
     [Range(0f, 100f)]

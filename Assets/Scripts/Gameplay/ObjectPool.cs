@@ -5,7 +5,8 @@ using System;
 public enum ObjectPoolCode
 {
     KuornosBullet,
-    ClassicMonsterBullet
+    ClassicBulletMonster,
+    MissleBullet
 }
 public class ObjectPool : MonoBehaviour
 {
