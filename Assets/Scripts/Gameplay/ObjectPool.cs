@@ -4,7 +4,8 @@ using UnityEngine;
 using System;
 public enum ObjectPoolCode
 {
-    KuornosBullet
+    KuornosBullet,
+    ClassicMonsterBullet
 }
 public class ObjectPool : MonoBehaviour
 {

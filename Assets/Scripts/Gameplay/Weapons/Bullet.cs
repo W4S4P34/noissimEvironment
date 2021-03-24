@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Collider2D))]
 public class Bullet : MonoBehaviour, IEntityDamageEvent
 {
     #region Protected Fields
     [SerializeField]
-    protected BulletStat bulletStat;
+    protected BulletStats bulletStat;
     protected Vector3 shootDirection;
+    protected new Rigidbody2D rigidbody2D;
     #endregion
 
     #region Private Fields
@@ -40,10 +43,13 @@ public class Bullet : MonoBehaviour, IEntityDamageEvent
     // Function apply projectile force for bullet
     public void Setup(Vector3 shootDirection)
     {
-        Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
-
+        if (!rigidbody2D)
+            rigidbody2D = GetComponent<Rigidbody2D>();
+        Debug.Log("Before reset: " + rigidbody2D.velocity);
+        rigidbody2D.velocity = Vector2.zero;
+        rigidbody2D.angularVelocity = 0f;
+        Debug.Log("After reset: " + rigidbody2D.velocity);
         rigidbody2D.AddForce(shootDirection * bulletStat.projectileSpeed, ForceMode2D.Impulse);
-
     }
     // Function calculate damage function
     public float GetDamage(ref bool isCrit)
