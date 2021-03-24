@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class EntityStat : MonoBehaviour
+public class EntityStats : MonoBehaviour
 {
     #region Protected Fields
     [Header("ENTITY STAT")]

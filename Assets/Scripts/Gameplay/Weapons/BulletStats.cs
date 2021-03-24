@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BulletStatExample", menuName = "ScriptableObject/BulletStat")]
-public class BulletStat : ScriptableObject
+public class BulletStats : ScriptableObject
 {
     [Range(0f, 1000f)]
     public float damage = 50f;

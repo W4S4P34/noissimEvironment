@@ -3,25 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAimDirection : MonoBehaviour
+public class PlayerCombat : Entity
 {
     private Transform aimTransform;
-    private Animator aimAnimator;
 
-    [SerializeField] private Bullet pfBullet;
+    [SerializeField] 
+    private Bullet pfBullet;
     private Transform weaponTransform;
 
+    private Animator aimAnimator;
     private SpriteRenderer spriteRenderer;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         aimTransform = transform.Find("Aim");
         weaponTransform = aimTransform.Find("Weapon");
         aimAnimator = aimTransform.GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         ObjectPool.RegisterObjectPoolItem(pfBullet.GetBulletCode(), pfBullet.gameObject, 50);
     }
     // Update is called once per frame
@@ -61,8 +64,6 @@ public class PlayerAimDirection : MonoBehaviour
             aimAnimator.SetTrigger("isShooting");
 
             Vector3 bulletPosition = weaponTransform.position;
-
-            //Transform bulletTransform = Instantiate(pfBullet, bulletPosition, Quaternion.identity);
 
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 shootDirection = mousePosition - bulletPosition;

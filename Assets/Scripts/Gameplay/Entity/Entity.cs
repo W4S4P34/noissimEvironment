@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EntityStat))]
+[RequireComponent(typeof(EntityStats))]
 [RequireComponent(typeof(Collider2D))]
 public abstract class Entity : MonoBehaviour
 {
     #region Protected Fields
+    [Header("ENTITY FIELDS")]
     [SerializeField]
-    protected EntityStat entityStat = null;
+    protected EntityStats entityStat = null;
     [SerializeField]
     protected Animator animator = null;
     #endregion
@@ -18,9 +19,13 @@ public abstract class Entity : MonoBehaviour
     #endregion
 
     #region Monobehaviour Methods
+    protected virtual void Awake()
+    {
+
+    }
     protected virtual void Start()
     {
-        if (!entityStat) entityStat = GetComponent<EntityStat>();
+        if (!entityStat) entityStat = GetComponent<EntityStats>();
         if (!animator) animator = GetComponent<Animator>();
     }
     #endregion
@@ -31,8 +36,8 @@ public abstract class Entity : MonoBehaviour
     {
         var damage = e.GetDamage(ref isCrit);
         entityStat.TakeDamage(damage, OnDied);
-        // Create Pop up damage here
-        
+        // Create pop up damage here
+        PopupDamage.Create(transform.position, (int) damage, isCrit);
         // Add animation hit here
 
         
