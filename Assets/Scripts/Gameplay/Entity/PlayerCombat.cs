@@ -7,31 +7,25 @@ public class PlayerCombat : Entity
 {
     private Transform aimTransform;
 
-    [SerializeField] 
-    private Bullet pfBullet;
-    private Transform weaponTransform;
-
-    private Animator aimAnimator;
+    private IWeapon weapon;
     private SpriteRenderer spriteRenderer;
 
     protected override void Awake()
     {
         base.Awake();
-        aimTransform = transform.Find("Aim");
-        weaponTransform = aimTransform.Find("Weapon");
-        aimAnimator = aimTransform.GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     protected override void Start()
     {
         base.Start();
-        ObjectPool.RegisterObjectPoolItem(pfBullet.GetBulletCode(), pfBullet.gameObject, 50);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        aimTransform = transform.Find("Aim");
+        weapon = aimTransform.Find("Weapon").GetComponent<IWeapon>();
     }
     // Update is called once per frame
     private void Update()
     {
         HandleAiming();
-        HandleShooting();
+        weapon?.CatchFireEvent();
     }
 
     private void HandleAiming()
@@ -57,22 +51,23 @@ public class PlayerCombat : Entity
         aimTransform.localScale = aimLocalScale;
     }
 
-    private void HandleShooting()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            aimAnimator.SetTrigger("isShooting");
+    //private void HandleShooting()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        aimAnimator.SetTrigger("isShooting");
 
-            Vector3 bulletPosition = weaponTransform.position;
+    //        Vector3 bulletPosition = weaponTransform.position;
 
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 shootDirection = mousePosition - bulletPosition;
-            shootDirection.Normalize();
+    //        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //        Vector2 shootDirection = mousePosition - bulletPosition;
+    //        shootDirection.Normalize();
 
-            var _bullet = ObjectPool.GetObject(pfBullet.GetBulletCode());
-            _bullet.SetActive(true);
-            _bullet.transform.position = bulletPosition;
-            _bullet.GetComponent<Bullet>().Setup(shootDirection);
-        }
-    }
+    //        var _bullet = ObjectPool.GetObject(pfBullet.GetBulletCode());
+    //        _bullet.SetActive(true);
+    //        _bullet.transform.position = bulletPosition;
+    //        _bullet.transform.rotation = aimTransform.rotation;
+    //        _bullet.GetComponent<Bullet>().Setup(shootDirection);
+    //    }
+    //}
 }

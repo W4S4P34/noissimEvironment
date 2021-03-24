@@ -21,14 +21,14 @@ public class Nyx : ChasingMinion
     #region Protected Methods
     protected override void LongRangeAttack()
     {
-        ApplyForceBullet(transform.up);
-        ApplyForceBullet(transform.up * -1);
-        ApplyForceBullet(transform.right);
-        ApplyForceBullet(transform.right * -1);
-        ApplyForceBullet((transform.up + transform.right).normalized);
-        ApplyForceBullet((-transform.up + transform.right).normalized);
-        ApplyForceBullet((-transform.up + -transform.right).normalized);
-        ApplyForceBullet((transform.up + -transform.right).normalized);
+        Shoot(transform.up);
+        Shoot(transform.up * -1);
+        Shoot(transform.right);
+        Shoot(transform.right * -1);
+        Shoot((transform.up + transform.right).normalized);
+        Shoot((-transform.up + transform.right).normalized);
+        Shoot((-transform.up + -transform.right).normalized);
+        Shoot((transform.up + -transform.right).normalized);
     }
     protected override IEnumerator Attack()
     {

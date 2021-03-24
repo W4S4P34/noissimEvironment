@@ -24,7 +24,7 @@ public class Mercurius : ChasingMinion
     protected override void LongRangeAttack()
     {
         var shootDirection = (aiDestinationSetter.target.position - transform.position).normalized;
-        ApplyForceBullet(shootDirection);
+        Shoot(shootDirection);
     }
     protected override IEnumerator Attack()
     {

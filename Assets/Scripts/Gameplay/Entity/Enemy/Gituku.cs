@@ -7,7 +7,7 @@ public class Gituku : ImmovableMinion
 {
     #region Private Fields
     [Header("UNIQUE FIELDS")]
-    [SerializeField, Tooltip("Odd number only")]
+    [SerializeField, Range(5,13), Tooltip("Odd number only")]
     private int bulletPerClip = 5;
     [SerializeField]
     private float bulletAngle = 15f;
@@ -27,8 +27,7 @@ public class Gituku : ImmovableMinion
         var direction = (positionB - positionA).normalized;
         var angleAxisX = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         var newPosition = new Vector3(positionA.x + Mathf.Cos((angleAxisX-angle) * Mathf.Deg2Rad), positionA.y + Mathf.Sin((angleAxisX - angle) * Mathf.Deg2Rad));
-        direction = (positionA - newPosition).normalized;
-        return direction;
+        return (positionA - newPosition).normalized;
     }
     #endregion
 
@@ -37,19 +36,18 @@ public class Gituku : ImmovableMinion
     {
         var targetPosition = aiDestinationSetter.target.position;
         var shootDirection = (targetPosition - transform.position).normalized;
-        ApplyForceBullet(shootDirection);
+        Shoot(shootDirection);
         for (int i = 1; i <= bulletPerClip/2; i++)
         {
             shootDirection = CalculateDirectionFromAngle(transform.position, targetPosition, i * bulletAngle);
-            ApplyForceBullet(shootDirection);
+            Shoot(shootDirection);
             shootDirection = CalculateDirectionFromAngle(transform.position, targetPosition, -i * bulletAngle);
-            ApplyForceBullet(shootDirection);
+            Shoot(shootDirection);
         }
     }
     protected override IEnumerator Attack()
     {
         isOnAction = true;
-        yield return new WaitForSeconds(1f);
         LongRangeAttack();
         // Add animation here
 

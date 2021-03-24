@@ -13,7 +13,7 @@ public abstract class ImmovableMinion : Enemy
 {
     #region Protected Fields
     [Header("GENERAL FIELDS")]
-    [SerializeField]
+    [SerializeField, Range(1f,10f)]
     protected float attackRange = 2f;
     [SerializeField]
     protected float fireRate = 1f;
@@ -59,7 +59,7 @@ public abstract class ImmovableMinion : Enemy
     #endregion
 
     #region Protected Methods
-    protected virtual void ApplyForceBullet(Vector3 shootDirection)
+    protected virtual void Shoot(Vector3 shootDirection)
     {
         var _bullet = ObjectPool.GetObject(pfBullet.GetBulletCode());
         _bullet.SetActive(true);
