@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Boundary
   - Enemy
+  - Spawnpoint
+  - Room
+  - DungeonManager
+  - SpawnDetroyer
   layers:
   - Default
   - TransparentFX
