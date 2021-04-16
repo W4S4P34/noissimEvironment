@@ -1,17 +1,24 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DungeonMapRandomBuilder : MonoBehaviour
 {
-    // Sample map
-    private Vector3 root;
-    private int[][] randomMap;
+    // Map containers
+    private int[,] randomMap;
+    private Vector3 playerPosition;
+    private Vector3 bossPosition;
 
-    // Room size
-    private const int roomWidth = 16; // == roomHeight
-    // private const int roomheight = 16;
+    // Room's size
+    private const int _ROOM_WIDTH_ = 16; // == _ROOM_HEIGHT_
+    // private const int _ROOM_HEIGHT_ = 16;
+
+    // Map's size
+    private const int _MAP_WIDTH_ = 4;
+    private const int _MAP_HEIGHT_ = 4;
+    private const int _MIN_ROOM_ = 8;
+    private const int _MAX_ROOM_ = 15;
 
     // List of room prefabs
     [SerializeField] private GameObject[] rooms;  
@@ -19,13 +26,15 @@ public class DungeonMapRandomBuilder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        root = new Vector3(2, 1);
-        randomMap = new int[4][] {
-            new int[4] { 0, 0, 1, 0 },
-            new int[4] { 0, 1, 1 ,0 },
-            new int[4] { 1, 1, 1 ,1 },
-            new int[4] { 0, 1, 0 ,0 }
-        };
+        // Init matrix
+        Tuple<int[,], Vector2, Vector2> container =
+            DungeonMapRandomGenerator.InitalizeMaze(
+                _MAP_WIDTH_, _MAP_HEIGHT_, _MIN_ROOM_, _MAX_ROOM_);
+
+        // Setup matrix -> containers
+        randomMap = container.Item1;
+        playerPosition = container.Item2;
+        bossPosition = container.Item3;
 
         instantiateMapWithBFS();
         // StartCoroutine(instantiateMapWithBFS());
@@ -36,7 +45,7 @@ public class DungeonMapRandomBuilder : MonoBehaviour
         Queue<Vector3> incomingDiscover = new Queue<Vector3>();
         HashSet<Vector3> visited = new HashSet<Vector3>();
 
-        incomingDiscover.Enqueue(root);
+        incomingDiscover.Enqueue(playerPosition);
 
         while(incomingDiscover.Count != 0)
         {
@@ -58,7 +67,7 @@ public class DungeonMapRandomBuilder : MonoBehaviour
                     {
                         // Top
                         case 0:
-                            if (randomMap[x - 1][y] == 1)
+                            if (randomMap[x - 1, y] == 1)
                             {
                                 currentRoomState[0] = true;
                                 addNeighbour(x - 1, y, in visited, incomingDiscover);
@@ -66,7 +75,7 @@ public class DungeonMapRandomBuilder : MonoBehaviour
                             break;
                         // Right
                         case 1:
-                            if (randomMap[x][y + 1] == 1)
+                            if (randomMap[x, y + 1] == 1)
                             {
                                 currentRoomState[1] = true;
                                 addNeighbour(x, y + 1, in visited, incomingDiscover);
@@ -74,7 +83,7 @@ public class DungeonMapRandomBuilder : MonoBehaviour
                             break;
                         // Bottom
                         case 2:
-                            if (randomMap[x + 1][y] == 1)
+                            if (randomMap[x + 1, y] == 1)
                             {
                                 currentRoomState[2] = true;
                                 addNeighbour(x + 1, y, in visited, incomingDiscover);
@@ -82,7 +91,7 @@ public class DungeonMapRandomBuilder : MonoBehaviour
                             break;
                         // Left
                         case 3:
-                            if (randomMap[x][y - 1] == 1)
+                            if (randomMap[x, y - 1] == 1)
                             {
                                 currentRoomState[3] = true;
                                 addNeighbour(x, y - 1, in visited, incomingDiscover);
@@ -121,7 +130,7 @@ public class DungeonMapRandomBuilder : MonoBehaviour
 
         // Convert coordination system from array -> Unity coordination system
         Vector3 actualPosition =
-            new Vector3(position.y * roomWidth, position.x * -roomWidth);
+            new Vector3(position.y * _ROOM_WIDTH_, position.x * -_ROOM_WIDTH_);
 
         switch (state)
         {
