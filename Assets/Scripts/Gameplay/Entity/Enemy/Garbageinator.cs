@@ -67,7 +67,7 @@ public class Garbageinator : Enemy
     {
         base.Start();
         listPhaseAttack.Add(new List<Action>() { DiagonalAttack, CircleWaveAttack });
-        listPhaseAttack.Add(new List<Action>() { DestructiveAttack, SpawnMinions });
+        listPhaseAttack.Add(new List<Action>() { DestructiveAttack });
         listPhaseAttack.Add(new List<Action>() {  });
         ObjectPool.RegisterObjectPoolItem(pfSimpleBullet.GetBulletCode(), pfSimpleBullet.gameObject, 50);
         ObjectPool.RegisterObjectPoolItem(pfBomb.GetBulletCode(), pfBomb.gameObject, 10);
