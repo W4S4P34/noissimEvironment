@@ -15,4 +15,5 @@ public class BulletStats : ScriptableObject
     [TagSelector]
     public string exceptionTag;
     public ObjectPoolCode bulletCode;
+    public GameObject pfExplosion;
 }

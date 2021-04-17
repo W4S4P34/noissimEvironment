@@ -8,7 +8,7 @@ public class EntityStats : MonoBehaviour
 {
     #region Protected Fields
     [Header("ENTITY STAT")]
-    [SerializeField, Range(100f, 1000f)]
+    [SerializeField, Range(100f, 5000f)]
     protected float maxHp = 200f;
     [SerializeField]
     protected float armor = 10f;

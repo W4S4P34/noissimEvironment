@@ -40,7 +40,7 @@ public class ClassicGun : Gun
         _bullet.SetActive(true);
         _bullet.transform.position = bulletPosition;
         _bullet.transform.rotation = aimTransform.rotation;
-        _bullet.GetComponent<Bullet>().Setup(shootDirection, Random.Range(1,100) <= critChance);
+        _bullet.GetComponent<Bullet>().Setup(shootDirection, Random.Range(1,101) <= critChance);
         yield return new WaitForSeconds(fireRate);
         isOnAction = false;
     }

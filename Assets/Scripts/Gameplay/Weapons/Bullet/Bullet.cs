@@ -13,10 +13,14 @@ public class Bullet : MonoBehaviour, IEntityDamageEvent
     #endregion
 
     #region Private Fields
-    private bool isCrit;
+    protected bool isCrit;
     #endregion
 
     #region Monobehaviour Methods
+    protected virtual void Start()
+    {
+        
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         OnHitEvent(collision);
@@ -39,15 +43,13 @@ public class Bullet : MonoBehaviour, IEntityDamageEvent
 
     #region Public Methods
     // Function apply projectile force for bullet
-    public void Setup(Vector3 shootDirection, bool isCrit = false)
+    public virtual void Setup(Vector3 shootDirection, bool isCrit = false)
     {
         if (!rigidbody2D)
             rigidbody2D = GetComponent<Rigidbody2D>();
         this.isCrit = isCrit;
-        Debug.Log("Before reset: " + rigidbody2D.velocity);
         rigidbody2D.velocity = Vector2.zero;
         rigidbody2D.angularVelocity = 0f;
-        Debug.Log("After reset: " + rigidbody2D.velocity);
         rigidbody2D.AddForce(shootDirection * bulletStat.projectileSpeed, ForceMode2D.Impulse);
     }
     // Function calculate damage function

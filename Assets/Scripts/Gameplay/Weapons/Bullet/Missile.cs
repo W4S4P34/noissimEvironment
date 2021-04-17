@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Missile : Bullet
 {
+    
     [SerializeField]
     private float radiusDamageArea = 0.5f;
-    [SerializeField]
-    private GameObject pfExplosion = null;
-    [SerializeField]
-    private SpriteRenderer spriteRenderer = null;
 
     private GameObject selfExplosion = null;
     #region Monobehaviour Methods
+    protected override void Start()
+    {
+        base.Start();
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, radiusDamageArea);
@@ -26,7 +27,7 @@ public class Missile : Bullet
         Debug.Log(collision);
         if (collision.gameObject.CompareTag(bulletStat.exceptionTag))
             return;
-        var collisionObjects = Physics2D.OverlapCircleAll(collision.transform.position, radiusDamageArea);
+        var collisionObjects = Physics2D.OverlapCircleAll(transform.position, radiusDamageArea);
         foreach (var item in collisionObjects)
         {
             if (item.CompareTag(bulletStat.exceptionTag))
@@ -34,10 +35,11 @@ public class Missile : Bullet
             item.GetComponent<Entity>()?.OnTakeDamage(this);
         }
         if(!selfExplosion)
-            selfExplosion = Instantiate(pfExplosion.gameObject);
+            selfExplosion = Instantiate(bulletStat.pfExplosion.gameObject);
         selfExplosion.transform.position = transform.position;
+        selfExplosion.transform.rotation = transform.rotation;
         selfExplosion.SetActive(true);
-        Invoke("FinishedExplosion", 0.5f);
+        TimeManipulator.GetInstance().InvokeActionAfterSeconds(0.5f, FinishedExplosion);
         ObjectPool.ReturnObject(bulletStat.bulletCode, gameObject);
         gameObject.SetActive(false);
         
