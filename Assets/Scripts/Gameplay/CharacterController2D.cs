@@ -17,6 +17,8 @@ public class CharacterController2D : MonoBehaviour
     private bool isDashing;
     float dashCoefficent;
 
+    float moveX = 0f, moveY = 0f;
+
     private void Awake()
     {
         playerRB2D = GetComponent<Rigidbody2D>();
@@ -33,7 +35,10 @@ public class CharacterController2D : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        float moveX = 0f, moveY = 0f;
+        // float moveX = Input.GetAxisRaw("Horizontal");
+        // float moveY = Input.GetAxisRaw("Vertical");
+
+        moveX = moveY = 0; 
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -43,13 +48,13 @@ public class CharacterController2D : MonoBehaviour
         {
             moveY = -1f;
         }
-        if (Input.GetKey(KeyCode.A))
-        {
-            moveX = -1f;
-        }
         if (Input.GetKey(KeyCode.D))
         {
             moveX = 1f;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            moveX = -1f;
         }
 
         moveDirection = new Vector3(moveX, moveY).normalized;
