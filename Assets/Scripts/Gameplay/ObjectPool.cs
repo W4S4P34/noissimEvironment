@@ -6,7 +6,9 @@ public enum ObjectPoolCode
 {
     KuornosBullet,
     ClassicBulletMonster,
-    MissleBullet
+    ClassicMissleBullet,
+    ClassicDestructionBullet,
+    SpawnPositionSign_1
 }
 public class ObjectPool : MonoBehaviour
 {

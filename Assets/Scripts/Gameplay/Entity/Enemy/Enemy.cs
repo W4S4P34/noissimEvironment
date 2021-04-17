@@ -25,6 +25,7 @@ public abstract class Enemy : Entity
         aiPath = GetComponent<AIPath>();
         aiDestinationSetter = GetComponent<AIDestinationSetter>();
         player = GameObject.FindGameObjectWithTag("Player");
+        aiDestinationSetter.target = player.transform;
     }
     #endregion
 

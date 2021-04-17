@@ -45,5 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfPopupDamage: {fileID: 702400097531979004, guid: 5858d0628ed72e64298eaff26f7494e9,
     type: 3}
-  pfBasicMissileExplosion: {fileID: 2677277473587596157, guid: ac0e33cec0c636849ad705a563c1b736,
-    type: 3}
+  pfSpawnPositionSign:
+  - {fileID: 4788105759361455089, guid: d8346c7fb615a6345ab4fc445d91084d, type: 3}
