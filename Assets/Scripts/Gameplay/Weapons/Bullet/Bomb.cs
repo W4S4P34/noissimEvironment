@@ -47,7 +47,7 @@ public class Bomb : Bullet
         var collisionObjects = Physics2D.OverlapCircleAll(position, radiusDamageArea);
         foreach (var item in collisionObjects)
         {
-            if (item.CompareTag(bulletStat.exceptionTag))
+            if (bulletStat.exceptionTag.Contains(item.tag))
                 continue;
             item.GetComponent<Entity>()?.OnTakeDamage(this);
         }

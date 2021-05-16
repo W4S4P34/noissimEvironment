@@ -25,7 +25,6 @@ public class ClassicGun : Gun
             StartCoroutine(Attack());
         }
     }
-
     public override IEnumerator Attack()
     {
         aimAnimator.SetTrigger("isShooting");

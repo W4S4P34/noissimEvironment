@@ -15,7 +15,7 @@ public abstract class Entity : MonoBehaviour
     #endregion
 
     #region Private Fields
-    private bool isCrit = false;
+    protected bool isCrit = false;
     #endregion
 
     #region Monobehaviour Methods
@@ -39,7 +39,7 @@ public abstract class Entity : MonoBehaviour
         // Create pop up damage here
         PopupDamage.Create(transform.position, (int) damage, isCrit);
         // Add animation hit here
-
+        
         
     }
     #endregion
@@ -47,7 +47,7 @@ public abstract class Entity : MonoBehaviour
     #region Protected Methods
     // Callback function when player died
     protected virtual void OnDied() {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
         // Add animation died here
 
     }

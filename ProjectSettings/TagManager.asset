@@ -10,6 +10,7 @@ TagManager:
   - Room
   - DungeonManager
   - SpawnDetroyer
+  - NonInteractWithBullet
   layers:
   - Default
   - TransparentFX

@@ -52,8 +52,10 @@ public class DungeonMapRandomGenerator
             if (maxRoom <= 1)
                 break;
         }
-        var bossRoom = InitializeBoss(maze, width, height, root);
-        return Tuple.Create(maze, root, bossRoom);
+        Vector2 bossRoom = Vector2.zero;
+        if (InitializeBoss(maze, width, height, root,ref bossRoom))
+            return Tuple.Create(maze, root, bossRoom);
+        return InitalizeMaze(width, height, minRoom, maxRoom);
     }
     #endregion
 
@@ -97,7 +99,7 @@ public class DungeonMapRandomGenerator
         return pos.x >= 0 && pos.x < height && pos.y >= 0 && pos.y < width;
     }
 
-    private static Vector2 InitializeBoss(int[,] a, int width, int height, Vector2 root)
+    private static bool InitializeBoss(int[,] a, int width, int height, Vector2 root,ref Vector2 bossRoom)
     {
         var q = new Queue<Vector2>();
         var acceptableRoom = new List<Vector2>();
@@ -127,7 +129,10 @@ public class DungeonMapRandomGenerator
                 acceptableRoom.Add(currentNode);
             }
         }
-        return acceptableRoom[Random.Range(0, acceptableRoom.Count)];
+        if (acceptableRoom.Count == 0)
+            return false;
+        bossRoom = acceptableRoom[Random.Range(0, acceptableRoom.Count)];
+        return true;
     }
     #endregion
 }

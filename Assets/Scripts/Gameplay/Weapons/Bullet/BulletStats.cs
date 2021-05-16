@@ -13,7 +13,8 @@ public class BulletStats : ScriptableObject
     [Range(0f, 100f)]
     public float projectileSpeed = 50f;
     [TagSelector]
-    public string exceptionTag;
+    public List<string> exceptionTag;
+
     public ObjectPoolCode bulletCode;
     public GameObject pfExplosion;
 }
