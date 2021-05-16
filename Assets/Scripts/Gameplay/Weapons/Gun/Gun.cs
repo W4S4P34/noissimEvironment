@@ -36,9 +36,13 @@ public abstract class Gun : MonoBehaviour, IWeapon
     }
     #endregion
 
-    #region Abstract Methods
+    #region Methods
     public abstract void CatchFireEvent();
     public abstract IEnumerator Attack();
+    public virtual void SwapBullet(Bullet pfBullet)
+    {
+        this.pfBullet = pfBullet;
+    }
     #endregion
 
 

@@ -9,10 +9,6 @@ public abstract class Item : MonoBehaviour
     #region Fields
     protected int dropItemRate { get; private set; }
     [SerializeField]
-    protected Sprite sprite;
-    [SerializeField]
-    protected string description;
-    [SerializeField]
     protected float eventTriggerRange;
 
     protected static float forceMagnetize = 10f;
@@ -42,7 +38,7 @@ public abstract class Item : MonoBehaviour
                 TriggerCloseEnough();
         }
     }
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, eventTriggerRange);
     }
