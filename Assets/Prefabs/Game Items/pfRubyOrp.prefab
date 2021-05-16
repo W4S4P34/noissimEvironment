@@ -95,8 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8476b7063af370346b7799152f9c791e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  description: 
+  dropItemRate: 50
   eventTriggerRange: 2
   rubyAmount: 100
 --- !u!95 &1635341784997337009

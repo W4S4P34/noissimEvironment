@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [RequireComponent(typeof(Collider2D))]
 public class TreasureChest : MonoBehaviour
@@ -13,9 +14,35 @@ public class TreasureChest : MonoBehaviour
     {
         GameObject treasureObject = Instantiate(GameAssets.i.pfTreasureChest, position, Quaternion.identity);
         TreasureChest treasureChest = treasureObject.GetComponent<TreasureChest>();
-        // Random item here
 
-        treasureChest.SetListItem(listItem);
+        System.Random r = new System.Random();
+
+        List<double> temp = new List<double>(listItem.Count + 1) { 0 };
+
+        for (int i = 0; i < listItem.Count; i++)
+        {
+            temp.Add(temp[temp.Count - 1] + listItem[i].dropItemRate);
+        }
+
+        int numberOfItems = r.Next(1, MAX_ITEM + 1);
+
+        List<Item> newList = new List<Item>(numberOfItems);
+
+        for(int i = 0; i < numberOfItems; i++) {
+            double rand = r.NextDouble() * 100;
+
+            for(int j = 0; j < listItem.Count; j++)
+            {
+                Debug.Log(temp[j] + "; " + temp[j + 1]);
+                if(rand > temp[j] && rand < temp[j + 1])
+                {
+                    newList.Add(listItem[j]);
+                    break;
+                }
+            }
+        }
+
+        treasureChest.SetListItem(newList);
         return treasureChest;
     }
 
@@ -27,7 +54,7 @@ public class TreasureChest : MonoBehaviour
     private Animator animator;
     [SerializeField]
     private float approachRange;
-
+        
     private List<Item> listItem;
     private bool isOpen = false;
 

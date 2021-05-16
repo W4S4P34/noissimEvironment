@@ -95,10 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb0b1a7ec3cfd3458709e88189a513e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  description: 
+  dropItemRate: 15
   eventTriggerRange: 2
-  healAmount: 100
+  healthAmount: 100
 --- !u!95 &4595252633899359675
 Animator:
   serializedVersion: 3

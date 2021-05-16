@@ -95,8 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5155aec235dea4fbc4afbd4034b12b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  description: 
+  dropItemRate: 30
   eventTriggerRange: 2
   healthAmount: 50
 --- !u!95 &7623017472648845682

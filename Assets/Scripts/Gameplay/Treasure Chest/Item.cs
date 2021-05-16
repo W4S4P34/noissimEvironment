@@ -7,7 +7,9 @@ using Random = UnityEngine.Random;
 public abstract class Item : MonoBehaviour
 {
     #region Fields
-    protected int dropItemRate { get; private set; }
+    [SerializeField]
+    public int dropItemRate;
+
     [SerializeField]
     protected float eventTriggerRange;
 
