@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 554311503607626073}
   - component: {fileID: 554311503607626076}
   m_Layer: 8
-  m_Name: Player
+  m_Name: pfPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,6 +235,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityStat: {fileID: 554311503607626076}
   animator: {fileID: 0}
+  listBullet:
+  - {fileID: -5478155700546876539, guid: 72e3452e6abb51f4a9b1878417ebb075, type: 3}
 --- !u!114 &554311503607626076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,8 +250,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 500
-  armor: 20
+  maxArmor: 200
   healthBar: {fileID: 0}
+  armorBar: {fileID: 0}
+  healthText: {fileID: 0}
+  armorText: {fileID: 0}
 --- !u!1 &554311504217916870
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPerClip: 30
-  pfBullet: {fileID: 2200357997178124249, guid: 1fe9a0bb3f43dc041a09d8102592f281,
+  pfBullet: {fileID: -5478155700546876539, guid: 72e3452e6abb51f4a9b1878417ebb075,
     type: 3}
   fireRate: 0
   critChance: 100

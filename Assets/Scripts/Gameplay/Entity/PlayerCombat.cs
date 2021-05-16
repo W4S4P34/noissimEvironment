@@ -5,10 +5,14 @@ using UnityEngine;
 
 public class PlayerCombat : Entity
 {
+    [SerializeField]
+    private List<Bullet> listBullet;
+
     private Transform aimTransform;
 
     private IWeapon weapon;
     private SpriteRenderer spriteRenderer;
+    private int currentBullet = 0;
 
     #region Monobehaviour Methods
     protected override void Awake()
@@ -22,13 +26,20 @@ public class PlayerCombat : Entity
         aimTransform = transform.Find("Aim");
         weapon = aimTransform.Find("Weapon").GetComponent<IWeapon>();
 
+        // Register action event
         ActionEventHandler.AddNewActionEvent(PlayerCombatEvent.HealEvent, Heal);
+        ActionEventHandler.AddNewActionEvent(PlayerCombatEvent.SwapBullet, SwapBulletEvent);
+        ActionEventHandler.AddNewActionEvent(PlayerCombatEvent.PickBulletItem, PickBulletItemEvent);
     }
     // Update is called once per frame
     private void Update()
     {
         HandleAiming();
         weapon?.CatchFireEvent();
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SwapBullet();
+        }
     }
     #endregion
 
@@ -65,12 +76,38 @@ public class PlayerCombat : Entity
         aimTransform.localScale = aimLocalScale;
     }
 
-    private void Heal(object[] param, Action onHealComplete)
+    private void SwapBullet()
     {
-        entityStat.Heal((float) param[0]);
+        if (listBullet.Count < 2) // Invoke event display error behaviour
+            return;
+        currentBullet = currentBullet == 0 ? 1 : 0;
+        ActionEventHandler.Invoke(PlayerCombatEvent.SwapBullet, new object[] { currentBullet }, null);
+    }
+
+    #endregion
+
+
+    #region Action event methods
+    private void PickBulletItemEvent(object[] param)
+    {
+        if (param == null)
+            return;
+        Bullet bulletOrp = (Bullet) param[0];
+        if(listBullet.Count >= 2)
+            listBullet.RemoveAt(0);
+        listBullet.Add(bulletOrp);
+    }
+
+    private void SwapBulletEvent(object[] param)
+    {
+        ((Gun)weapon).SwapBullet(listBullet[currentBullet]);
+    }
+
+    private void Heal(object[] param)
+    {
+        entityStat.Heal((float)param[0]);
         // Play effect here
 
-        onHealComplete?.Invoke();
     }
     #endregion
 

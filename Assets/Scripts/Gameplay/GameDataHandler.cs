@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class GameDataHandler : MonoBehaviour
@@ -18,5 +19,7 @@ public class GameDataHandler : MonoBehaviour
             TreasureChest.CreateTreasureChest(listItem, MAX_ITEM, new Vector3(-1.1f,-6.6f));
         });
     }
+
+    
 
 }

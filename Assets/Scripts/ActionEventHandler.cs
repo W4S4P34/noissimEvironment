@@ -6,7 +6,9 @@ using UnityEngine.Events;
 
 public enum PlayerCombatEvent
 {
-    HealEvent
+    HealEvent,
+    SwapBullet,
+    PickBulletItem
 }
 public enum GameDungeonEvent
 {
@@ -15,7 +17,7 @@ public enum GameDungeonEvent
     EndGame,
 }
 
-public class UnityParamEvent : UnityEvent<object[], Action> { }
+public class UnityParamEvent : UnityEvent<object[]> { }
 public static class ActionEventHandler
 {
     private static Dictionary<Enum, UnityEvent> listActionEvent = new Dictionary<Enum, UnityEvent>();
@@ -35,7 +37,7 @@ public static class ActionEventHandler
         }
     }
 
-    public static void AddNewActionEvent(Enum eventID, UnityAction<object[], Action> callback)
+    public static void AddNewActionEvent(Enum eventID, UnityAction<object[]> callback)
     {
         UnityParamEvent actionEvent;
         if (listParamActionEvent.TryGetValue(eventID, out actionEvent))
@@ -67,7 +69,8 @@ public static class ActionEventHandler
     {
         try
         {
-            listParamActionEvent[eventID].Invoke(param, onActionComplete);
+            listParamActionEvent[eventID].Invoke(param);
+            onActionComplete?.Invoke();
         }
         catch (Exception exc)
         {
