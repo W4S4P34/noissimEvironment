@@ -18,4 +18,5 @@ public class GameAssets : MonoBehaviour
 
     public Transform pfPopupDamage;
     public List<GameObject> pfSpawnPositionSign;
+    public GameObject pfTreasureChest;
 }

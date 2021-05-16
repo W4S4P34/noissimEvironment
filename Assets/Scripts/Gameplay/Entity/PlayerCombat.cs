@@ -10,6 +10,7 @@ public class PlayerCombat : Entity
     private IWeapon weapon;
     private SpriteRenderer spriteRenderer;
 
+    #region Monobehaviour Methods
     protected override void Awake()
     {
         base.Awake();
@@ -20,6 +21,8 @@ public class PlayerCombat : Entity
         spriteRenderer = GetComponent<SpriteRenderer>();
         aimTransform = transform.Find("Aim");
         weapon = aimTransform.Find("Weapon").GetComponent<IWeapon>();
+
+        ActionEventHandler.AddNewActionEvent(PlayerCombatEvent.HealEvent, Heal);
     }
     // Update is called once per frame
     private void Update()
@@ -27,7 +30,18 @@ public class PlayerCombat : Entity
         HandleAiming();
         weapon?.CatchFireEvent();
     }
+    #endregion
 
+    #region Methods
+    public override void OnTakeDamage(IEntityDamageEvent e)
+    {
+        var damage = e.GetDamage(ref isCrit);
+        entityStat.TakeDamage(damage, OnDied);
+        // Create pop up damage here
+        PopupDamage.Create(transform.position, (int)damage, isCrit);
+        // Add animation hit here
+        animator.SetTrigger("onHit");
+    }
     private void HandleAiming()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -51,23 +65,13 @@ public class PlayerCombat : Entity
         aimTransform.localScale = aimLocalScale;
     }
 
-    //private void HandleShooting()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        aimAnimator.SetTrigger("isShooting");
+    private void Heal(object[] param, Action onHealComplete)
+    {
+        entityStat.Heal((float) param[0]);
+        // Play effect here
 
-    //        Vector3 bulletPosition = weaponTransform.position;
+        onHealComplete?.Invoke();
+    }
+    #endregion
 
-    //        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //        Vector2 shootDirection = mousePosition - bulletPosition;
-    //        shootDirection.Normalize();
-
-    //        var _bullet = ObjectPool.GetObject(pfBullet.GetBulletCode());
-    //        _bullet.SetActive(true);
-    //        _bullet.transform.position = bulletPosition;
-    //        _bullet.transform.rotation = aimTransform.rotation;
-    //        _bullet.GetComponent<Bullet>().Setup(shootDirection);
-    //    }
-    //}
 }

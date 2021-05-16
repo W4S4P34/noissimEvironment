@@ -24,13 +24,12 @@ public class Missile : Bullet
     // Event trigger when hit something may be wall or obstacles or entity,....
     protected override void OnHitEvent(Collider2D collision)
     {
-        Debug.Log(collision);
-        if (collision.gameObject.CompareTag(bulletStat.exceptionTag))
+        if (bulletStat.exceptionTag.Contains(collision.tag))
             return;
         var collisionObjects = Physics2D.OverlapCircleAll(transform.position, radiusDamageArea);
         foreach (var item in collisionObjects)
         {
-            if (item.CompareTag(bulletStat.exceptionTag))
+            if (bulletStat.exceptionTag.Contains(item.tag))
                 continue;
             item.GetComponent<Entity>()?.OnTakeDamage(this);
         }

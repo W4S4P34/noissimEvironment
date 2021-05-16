@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour, IEntityDamageEvent
     // Event trigger when hit something may be wall or obstacles or entity,....
     protected virtual void OnHitEvent(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(bulletStat.exceptionTag))
+        if (bulletStat.exceptionTag.Contains(collision.tag))
             return;
         var entity = collision.GetComponent<Entity>();
         entity?.OnTakeDamage(this);

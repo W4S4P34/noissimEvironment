@@ -8,20 +8,26 @@ public enum ObjectPoolCode
     ClassicBulletMonster,
     ClassicMissleBullet,
     ClassicDestructionBullet,
+    ClassicGuidedBullet,
+    ClassicLaserBeam,
     SpawnPositionSign_1
 }
 public class ObjectPool : MonoBehaviour
 {
-    private static Dictionary<ObjectPoolCode, Queue<GameObject>> objectPool = null;
+    private static Dictionary<ObjectPoolCode, Queue<GameObject>> objectPoolQueue = null;
+    private static Dictionary<ObjectPoolCode, GameObject> objectPool = null;
 
     private void Awake()
     {
-        objectPool = new Dictionary<ObjectPoolCode, Queue<GameObject>>();
+        objectPoolQueue = new Dictionary<ObjectPoolCode, Queue<GameObject>>();
+        objectPool = new Dictionary<ObjectPoolCode, GameObject>();
     }
     public static void RegisterObjectPoolItem(ObjectPoolCode code, GameObject gameObject, int amount)
     {
-        if (!objectPool.TryGetValue(code,out Queue<GameObject> objectPoolItem))
+        if (!objectPoolQueue.TryGetValue(code,out Queue<GameObject> objectPoolItem))
         {
+            objectPool.Add(code, gameObject);
+
             objectPoolItem = new Queue<GameObject>();
             for (int i = 0; i < amount; i++)
             {
@@ -29,7 +35,8 @@ public class ObjectPool : MonoBehaviour
                 item.SetActive(false);
                 objectPoolItem.Enqueue(item);
             }
-            objectPool.Add(code, objectPoolItem);
+            objectPoolQueue.Add(code, objectPoolItem);
+
         }
         else
         {
@@ -45,19 +52,25 @@ public class ObjectPool : MonoBehaviour
 
     public static GameObject GetObject(ObjectPoolCode code)
     {
-        if (!objectPool.ContainsKey(code))
+        if (!objectPoolQueue.ContainsKey(code))
         {
             return null;
         }
-        var objectPoolItem = objectPool[code];
+        var objectPoolItem = objectPoolQueue[code];
+        if(objectPoolItem.Count <= 0)
+        {
+            var item = Instantiate(objectPool[code]);
+            item.SetActive(false);
+            objectPoolItem.Enqueue(item);
+        }
         return objectPoolItem.Dequeue();
     }
 
     public static void ReturnObject(ObjectPoolCode code, GameObject gameObject)
     {
-        if (objectPool.ContainsKey(code))
+        if (objectPoolQueue.ContainsKey(code))
         {
-            objectPool[code].Enqueue(gameObject);
+            objectPoolQueue[code].Enqueue(gameObject);
         }
     }
 }

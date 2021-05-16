@@ -47,3 +47,5 @@ MonoBehaviour:
     type: 3}
   pfSpawnPositionSign:
   - {fileID: 4788105759361455089, guid: d8346c7fb615a6345ab4fc445d91084d, type: 3}
+  pfTreasureChest: {fileID: 6756898680233621438, guid: aa3011d1881ef864baf890d77e5c9e6d,
+    type: 3}

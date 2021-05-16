@@ -14,12 +14,16 @@ public class Garbageinator : Enemy
     private List<float> phaseFireRate = null;
     [SerializeField]
     private List<Color> healthPhaseColor = null;
+    [SerializeField]
+    private Vector2 attackRange;
 
     
 
     [Header("Phase 1")]
     [SerializeField]
     private Bullet pfSimpleBullet = null;
+    [SerializeField]
+    private Bullet pfLaserBeam = null;
     [Header("Spiral Attack")]
     [SerializeField, Range(5, 13), Tooltip("Odd number only")]
     private int bulletPerClip = 5;
@@ -66,14 +70,15 @@ public class Garbageinator : Enemy
     protected override void Start()
     {
         base.Start();
-        listPhaseAttack.Add(new List<Action>() { DiagonalAttack, CircleWaveAttack });
+        listPhaseAttack.Add(new List<Action>() { CircleWaveAttack, DiagonalAttack, LaserBeamWipeAttack });
         listPhaseAttack.Add(new List<Action>() { DestructiveAttack });
         listPhaseAttack.Add(new List<Action>() {  });
-        ObjectPool.RegisterObjectPoolItem(pfSimpleBullet.GetBulletCode(), pfSimpleBullet.gameObject, 50);
+        ObjectPool.RegisterObjectPoolItem(pfSimpleBullet.GetBulletCode(), pfSimpleBullet.gameObject, 20);
         ObjectPool.RegisterObjectPoolItem(pfBomb.GetBulletCode(), pfBomb.gameObject, 10);
-        ObjectPool.RegisterObjectPoolItem(spawnPositionSignCode, GameAssets.i.pfSpawnPositionSign[spawnPositionSignIndex], 20);
-
-        //ObjectPool.RegisterObjectPoolItem(pfGuidedBullet.GetBulletCode(), pfBomb.gameObject, 10);
+        ObjectPool.RegisterObjectPoolItem(pfLaserBeam.GetBulletCode(), pfLaserBeam.gameObject, 10);
+        ObjectPool.RegisterObjectPoolItem(spawnPositionSignCode, GameAssets.i.pfSpawnPositionSign[spawnPositionSignIndex], 10);
+        
+        //ObjectPool.RegisterObjectPoolItem(pfGuidedBullet.GetBulletCode(), pfGuidedBullet.gameObject, 10);
         phaseAttack = Phase_2;
     }
 
@@ -81,6 +86,13 @@ public class Garbageinator : Enemy
     {
         if(!isOnAction)
             phaseAttack.Invoke();
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Orange
+        Gizmos.color = new Color(1.0f, 0.5f, 0.0f);
+        Gizmos.DrawWireCube(transform.position, attackRange);
     }
     #endregion
 
@@ -99,7 +111,7 @@ public class Garbageinator : Enemy
     }
     private void Phase_3()
     {
-        nextAttackPhase = Random.Range(0, numOfPhase - 1);
+        nextAttackPhase = Random.Range(0, numOfPhase);
     }
     private Vector3 CalculateDirectionFromAngle(Vector3 positionA, Vector3 positionB, float angle)
     {
@@ -128,12 +140,12 @@ public class Garbageinator : Enemy
     private void DiagonalAttack()
     {
         isOnAction = true;
-        TimeManipulator.GetInstance().InvokeActionWithPromise(phaseFireRate[0], () => {
+        TimeManipulator.GetInstance().InvokeRepeatAction(0.3f, 6, () => {
             Shoot((Vector2.right + Vector2.up).normalized, pfSimpleBullet);
             Shoot((Vector2.right - Vector2.up).normalized, pfSimpleBullet);
             Shoot((-Vector2.right + Vector2.up).normalized, pfSimpleBullet);
             Shoot((-Vector2.right - Vector2.up).normalized, pfSimpleBullet);
-        }, () => isOnAction = false);
+        }, () => TimeManipulator.GetInstance().InvokeActionAfterSeconds(phaseFireRate[0], () => isOnAction = false));
     }
 
 
@@ -147,7 +159,7 @@ public class Garbageinator : Enemy
 
     private void SpiralAttack()
     {
-        
+
     }
 
 
@@ -161,7 +173,7 @@ public class Garbageinator : Enemy
     private void CircleWaveAttack()
     {
         isOnAction = true;
-        TimeManipulator.GetInstance().InvokeActionWithPromise(phaseFireRate[0], () => {
+        TimeManipulator.GetInstance().InvokeRepeatAction(0.3f, 6, () => {
             var targetPosition = aiDestinationSetter.target.position;
             var shootDirection = (targetPosition - transform.position).normalized;
             Shoot(shootDirection, pfSimpleBullet);
@@ -172,7 +184,7 @@ public class Garbageinator : Enemy
                 shootDirection = CalculateDirectionFromAngle(transform.position, targetPosition, -i * bulletAngle);
                 Shoot(shootDirection, pfSimpleBullet);
             }
-        }, () => isOnAction = false);
+        }, () => TimeManipulator.GetInstance().InvokeActionAfterSeconds(phaseFireRate[0], () => isOnAction = false));
     }
 
 
@@ -185,7 +197,27 @@ public class Garbageinator : Enemy
     
     private void LaserBeamWipeAttack()
     {
-        
+        isOnAction = true;
+        TimeManipulator.GetInstance().InvokeRepeatAction(0.5f, 3, () =>
+        {
+            // Random number of laser beam
+            int laserCount = Random.Range(2, 6);
+            var spawnPositions = GenerateSpawnPosition(laserCount, minSpawnDistance);
+            foreach (var item in spawnPositions)
+            {
+                var spawnPositionSign = ObjectPool.GetObject(spawnPositionSignCode);
+                spawnPositionSign.transform.position = item;
+                spawnPositionSign.SetActive(true);
+                TimeManipulator.GetInstance().InvokeActionAfterSeconds(spawnSignLiveTime, () => {
+                    spawnPositionSign.SetActive(false);
+                    ObjectPool.ReturnObject(spawnPositionSignCode, spawnPositionSign);
+                    LaserBeam laserBeam = ObjectPool.GetObject(pfLaserBeam.GetBulletCode())?.GetComponent<LaserBeam>();
+                    laserBeam.gameObject.SetActive(true);
+                    laserBeam.transform.position = item;
+                    laserBeam.Trigger();
+                });
+            }
+        }, () => TimeManipulator.GetInstance().InvokeActionAfterSeconds(phaseFireRate[0], () => isOnAction = false));
     }
 
 
@@ -199,10 +231,10 @@ public class Garbageinator : Enemy
     private void DestructiveAttack()
     {
         isOnAction = true;
-        TimeManipulator.GetInstance().InvokeActionWithPromise(phaseFireRate[nextAttackPhase] + spawnSignLiveTime, () =>
+        TimeManipulator.GetInstance().InvokeRepeatAction(0.5f, 3, () =>
         {
             // Random number of bomb
-            int bombCount = Random.Range(1, 6);
+            int bombCount = Random.Range(1, 5);
             var spawnPositions = GenerateSpawnPosition(bombCount, minSpawnDistance);
             foreach (var item in spawnPositions)
             {
@@ -218,8 +250,7 @@ public class Garbageinator : Enemy
                     destruction.Trigger();
                 });
             }
-            
-        }, () => isOnAction = false);
+        }, () => TimeManipulator.GetInstance().InvokeActionAfterSeconds(phaseFireRate[1], () => isOnAction = false));
     }
 
 
@@ -291,5 +322,4 @@ public class Garbageinator : Enemy
         return spawnPositions;
     }
     #endregion
-
 }
