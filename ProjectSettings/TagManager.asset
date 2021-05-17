@@ -11,6 +11,9 @@ TagManager:
   - DungeonManager
   - SpawnDetroyer
   - NonInteractWithBullet
+  - NPC
+  - DungeonEntrance
+  - SkillPanel
   layers:
   - Default
   - TransparentFX
