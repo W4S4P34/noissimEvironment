@@ -61,6 +61,23 @@ public class ProgressSerial
             Debug.LogError("There is no save data!");
     }
 
+    public void restartData()
+    {
+        if (File.Exists(Application.persistentDataPath + Constants.fileName))
+        {
+            File.Delete(Application.persistentDataPath + Constants.fileName);
+            rubyToSave = 0;
+            expToSave = 0;
+            Debug.Log("Data reset complete!");
+        }
+        else
+            Debug.LogError("No save data to delete.");
+    }
+
+    public bool checkExist()
+    {
+        return File.Exists(Application.persistentDataPath + Constants.fileName);
+    }
 }
 
 [Serializable]
