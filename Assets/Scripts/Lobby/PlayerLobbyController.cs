@@ -52,6 +52,8 @@ public class PlayerLobbyController : MonoBehaviour
         skill_2.onClick.AddListener(skill2Click);
         Button closeBtn = closeButton.GetComponent<Button>();
         closeBtn.onClick.AddListener(OnSkillPanelClick);
+        Button applyBtn = applyButton.GetComponent<Button>();
+        applyBtn.onClick.AddListener(OnSkillPanelClick);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -79,6 +81,7 @@ public class PlayerLobbyController : MonoBehaviour
             // Load Skill Panel
             if (Input.GetKeyDown(KeyCode.F))
             {
+                NPCName.SetActive(false);
                 OnSkillPanelClick();
             }
         }
