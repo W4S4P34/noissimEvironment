@@ -301,7 +301,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1311332111
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &6502148120950566421
@@ -581,7 +581,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1908940795
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 03bb73a17291d384e8a5a8e26e8e5c56, type: 3}
   m_Color: {r: 1, g: 0, b: 0.8089566, a: 1}
   m_FlipX: 0
@@ -710,8 +710,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 400
-  armor: 10
+  maxArmor: 200
   healthBar: {fileID: 6502148122169999978}
+  armorBar: {fileID: 0}
+  healthText: {fileID: 0}
+  armorText: {fileID: 0}
 --- !u!114 &6502148122204684173
 MonoBehaviour:
   m_ObjectHideFlags: 0

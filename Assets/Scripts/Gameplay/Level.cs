@@ -8,8 +8,8 @@ public class Level : ScriptableObject
     public int maxRoom;
     public int minRoom;
 
-    public List<Enemy> listEnemies;
-    public Enemy boss;
+    public List<GameObject> listEnemies;
+    public GameObject boss;
     public int maxItemPerTreasure;
     public List<Item> itemChest;
 }

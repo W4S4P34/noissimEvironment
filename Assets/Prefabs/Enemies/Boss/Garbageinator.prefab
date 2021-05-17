@@ -265,7 +265,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1311332111
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &6081126727415634704
@@ -383,7 +383,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1908940795
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 03bb73a17291d384e8a5a8e26e8e5c56, type: 3}
   m_Color: {r: 0, g: 0.9612417, b: 1, a: 1}
   m_FlipX: 0
@@ -512,8 +512,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 5000
-  armor: 200
+  maxArmor: 200
   healthBar: {fileID: 6081126727673697305}
+  armorBar: {fileID: 0}
+  healthText: {fileID: 0}
+  armorText: {fileID: 0}
 --- !u!114 &6081126727505208666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,8 +539,10 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
+  attackRange: {x: 0, y: 0}
   pfSimpleBullet: {fileID: 7121078321834406567, guid: 48489072b75b43a4db426c02858044e6,
     type: 3}
+  pfLaserBeam: {fileID: 0}
   bulletPerClip: 13
   bulletAngle: 30
   listMinionSpawn:
