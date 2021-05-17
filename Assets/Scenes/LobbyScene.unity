@@ -8019,15 +8019,6 @@ MonoBehaviour:
   resumeText: {fileID: 1169001304}
   restartText: {fileID: 210176852}
   dim: {fileID: 421653610}
-  skillPanel: {fileID: 350942022}
-  background: {fileID: 1768145604}
-  skillPanelText: {fileID: 2046545822}
-  skill1Description: {fileID: 1940043377}
-  skill2Description: {fileID: 446176184}
-  skill1Button: {fileID: 645118729}
-  skill2Button: {fileID: 1886859707}
-  closeButton: {fileID: 583198332}
-  applyButton: {fileID: 1187121400}
 --- !u!1 &1454472399 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1958214417425351386, guid: 56a253ed9cbbafc41826f25f6410c1c1,
@@ -8306,6 +8297,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertText: {fileID: 1064419612}
   NPCName: {fileID: 75419370}
+  skillPanel: {fileID: 350942022}
+  background: {fileID: 1768145604}
+  skillPanelText: {fileID: 2046545822}
+  skill1Description: {fileID: 1940043377}
+  skill2Description: {fileID: 446176184}
+  skill1Button: {fileID: 645118729}
+  skill2Button: {fileID: 1886859707}
+  closeButton: {fileID: 583198332}
+  applyButton: {fileID: 1187121400}
 --- !u!1001 &1701768988
 PrefabInstance:
   m_ObjectHideFlags: 0
