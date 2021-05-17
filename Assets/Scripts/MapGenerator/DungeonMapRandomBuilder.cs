@@ -1,31 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class DungeonMapRandomBuilder : MonoBehaviour
 {
     // Map containers
     private int[,] randomMap;
-    private Vector3 playerPosition;
+    private Vector3 rootPosition;
     private Vector3 bossPosition;
 
     // Room's size
-    private const int _ROOM_WIDTH_ = 16; // == _ROOM_HEIGHT_
+    private const int _ROOM_WIDTH_ = 34; // == _ROOM_HEIGHT_
     // private const int _ROOM_HEIGHT_ = 16;
+
+    // Scriptable Object Level
+    [SerializeField] private Level levelInformation;
 
     // Map's size
     private const int _MAP_WIDTH_ = 4;
     private const int _MAP_HEIGHT_ = 4;
-    private const int _MIN_ROOM_ = 8;
-    private const int _MAX_ROOM_ = 15;
+    private int _MIN_ROOM_ = 0;
+    private int _MAX_ROOM_ = 0;
 
-    // List of room prefabs
-    [SerializeField] private GameObject[] rooms;  
+    // Room prefab
+    [SerializeField] private GameObject roomPrefab;
+
+    #region Properties
+
+    public Level LevelInformation
+    {
+        get { return levelInformation; }
+    }
+
+    #endregion
+
+    /**
+     * Player Initialization
+     */
+    [SerializeField] private GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
+        _MIN_ROOM_ = levelInformation.minRoom;
+        _MAX_ROOM_ = levelInformation.maxRoom;
+
         // Init matrix
         Tuple<int[,], Vector2, Vector2> container =
             DungeonMapRandomGenerator.InitalizeMaze(
@@ -33,8 +52,18 @@ public class DungeonMapRandomBuilder : MonoBehaviour
 
         // Setup matrix -> containers
         randomMap = container.Item1;
-        playerPosition = container.Item2;
+        rootPosition = container.Item2;
         bossPosition = container.Item3;
+
+        /**
+         * Player Initialization
+         */
+
+        // Convert coordination system from array -> Unity coordination system
+        Vector3 playerPosition =
+            new Vector3(rootPosition.y * _ROOM_WIDTH_, rootPosition.x * -_ROOM_WIDTH_);
+
+        player.transform.position = playerPosition;
 
         instantiateMapWithBFS();
         // StartCoroutine(instantiateMapWithBFS());
@@ -45,7 +74,7 @@ public class DungeonMapRandomBuilder : MonoBehaviour
         Queue<Vector3> incomingDiscover = new Queue<Vector3>();
         HashSet<Vector3> visited = new HashSet<Vector3>();
 
-        incomingDiscover.Enqueue(playerPosition);
+        incomingDiscover.Enqueue(rootPosition);
 
         while(incomingDiscover.Count != 0)
         {
@@ -128,77 +157,18 @@ public class DungeonMapRandomBuilder : MonoBehaviour
     {
         uint state = boolArrayToInt(roomState);
 
+        bool isRoot = false, isBoss = false;
+        if (position == rootPosition) isRoot = true;
+        if (position == bossPosition) isBoss = true;
+
         // Convert coordination system from array -> Unity coordination system
         Vector3 actualPosition =
             new Vector3(position.y * _ROOM_WIDTH_, position.x * -_ROOM_WIDTH_);
 
-        switch (state)
-        {
-            // No Entry
-            case 0:
-                Instantiate(rooms[0], actualPosition, Quaternion.identity);
-                break;
-            // L
-            case 1:
-                Instantiate(rooms[1], actualPosition, Quaternion.identity);
-                break;
-            // B
-            case 2:
-                Instantiate(rooms[2], actualPosition, Quaternion.identity);
-                break;
-            // BL
-            case 3:
-                Instantiate(rooms[3], actualPosition, Quaternion.identity);
-                break;
-            // R
-            case 4:
-                Instantiate(rooms[4], actualPosition, Quaternion.identity);
-                break;
-            // RL
-            case 5:
-                Instantiate(rooms[5], actualPosition, Quaternion.identity);
-                break;
-            // RB
-            case 6:
-                Instantiate(rooms[6], actualPosition, Quaternion.identity);
-                break;
-            // RBL
-            case 7:
-                Instantiate(rooms[7], actualPosition, Quaternion.identity);
-                break;
-            // T
-            case 8:
-                Instantiate(rooms[8], actualPosition, Quaternion.identity);
-                break;
-            // TL
-            case 9:
-                Instantiate(rooms[9], actualPosition, Quaternion.identity);
-                break;
-            // TB
-            case 10:
-                Instantiate(rooms[10], actualPosition, Quaternion.identity);
-                break;
-            // TBL
-            case 11:
-                Instantiate(rooms[11], actualPosition, Quaternion.identity);
-                break;
-            // TR
-            case 12:
-                Instantiate(rooms[12], actualPosition, Quaternion.identity);
-                break;
-            // TRL
-            case 13:
-                Instantiate(rooms[13], actualPosition, Quaternion.identity);
-                break;
-            // TRB
-            case 14:
-                Instantiate(rooms[14], actualPosition, Quaternion.identity);
-                break;
-            // TRBL
-            case 15:
-                Instantiate(rooms[15], actualPosition, Quaternion.identity);
-                break;
-        }
+        GameObject room = Instantiate(roomPrefab, actualPosition, Quaternion.identity);
+        
+        room.GetComponent<DungeonRoomBuilder>()
+            .updateRoomInformation(state, isRoot, isBoss);
     }
 
     private uint boolArrayToInt(bool[] boolArray)

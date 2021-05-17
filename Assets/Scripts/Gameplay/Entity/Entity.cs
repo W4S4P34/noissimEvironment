@@ -39,8 +39,7 @@ public abstract class Entity : MonoBehaviour
         // Create pop up damage here
         PopupDamage.Create(transform.position, (int) damage, isCrit);
         // Add animation hit here
-        
-        
+                
     }
     #endregion
 

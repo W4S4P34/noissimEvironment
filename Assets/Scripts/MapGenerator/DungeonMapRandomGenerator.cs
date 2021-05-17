@@ -10,6 +10,7 @@ public class DungeonMapRandomGenerator
     {
         int[,] maze = new int[height, width];
         Vector2 currentNode;
+
         var root = Vector2.right * Random.Range(0, height) + Vector2.up * Random.Range(0, width);
         var q = new Queue<Vector2>();
         var traversalSet = new HashSet<Vector2>();

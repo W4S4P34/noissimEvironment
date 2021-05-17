@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using System;
 
 public enum AttackType
 {
@@ -17,6 +18,8 @@ public abstract class Enemy : Entity
     protected AIDestinationSetter aiDestinationSetter = null;
     protected GameObject player = null;
 
+    public event EventHandler EnemyDie;
+
     #region MonoBehaviour Methods
     protected override void Awake() { }
     protected override void Start()
@@ -28,5 +31,11 @@ public abstract class Enemy : Entity
         aiDestinationSetter.target = player.transform;
     }
     #endregion
+
+    protected override void OnDied()
+    {
+        EnemyDie?.Invoke(this, EventArgs.Empty);
+        base.OnDied();
+    }
 
 }

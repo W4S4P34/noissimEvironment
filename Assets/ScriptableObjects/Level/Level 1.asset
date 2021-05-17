@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7464ac0e37992fc4d9b3ad896dd593ba, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
-  maxRoom: 12
+  maxRoom: 16
   minRoom: 8
   listEnemies:
-  - {fileID: 6502148122204684173, guid: 0025059532a351043a7738534bcb7335, type: 3}
-  - {fileID: 4547731352842746647, guid: 0093f78d402a6e34589ef4f20486ef02, type: 3}
-  - {fileID: 8236847634996357872, guid: acd6b0587b1e7d74cac6956abc21f6dc, type: 3}
-  boss: {fileID: 6081126727505208666, guid: f2ee164088437fc418e53377b9586a7f, type: 3}
+  - {fileID: 6502148122204684172, guid: 0025059532a351043a7738534bcb7335, type: 3}
+  - {fileID: 4547731352842746640, guid: 0093f78d402a6e34589ef4f20486ef02, type: 3}
+  - {fileID: 8236847634996357873, guid: acd6b0587b1e7d74cac6956abc21f6dc, type: 3}
+  boss: {fileID: 6081126727505208642, guid: f2ee164088437fc418e53377b9586a7f, type: 3}
   maxItemPerTreasure: 3
   itemChest:
   - {fileID: 238395060862492161, guid: b9de9786c0067c345be6a8c80ea787bf, type: 3}
