@@ -42,6 +42,11 @@ namespace noissimEnvironment.LobbyScene
         [SerializeField]
         private GameObject skillPanel = null;
 
+        [Space(10)]
+        [Header("========== Panel Settings ==========")]
+        [SerializeField]
+        private GameObject playerEXPPanel = null;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -82,6 +87,7 @@ namespace noissimEnvironment.LobbyScene
             {
                 pausePanel.SetActive(true);
                 skillPanel.SetActive(false);
+                playerEXPPanel.SetActive(false);
 
                 dim.DOFade(1f, 0.5f).SetEase(Ease.OutCubic);
                 textPause.DOFade(1f, 0.2f).SetEase(Ease.OutCubic).SetDelay(0.2f);
@@ -99,6 +105,7 @@ namespace noissimEnvironment.LobbyScene
             }
             else
             {
+                playerEXPPanel.SetActive(true);
                 dim.DOFade(0f, 0.5f).SetEase(Ease.OutCubic);
                 textPause.DOFade(0f, 0.2f).SetEase(Ease.OutCubic).SetDelay(0.2f);
                 TimeManipulator.GetInstance().InvokeActionAfterSeconds(0.25f, () =>
@@ -123,6 +130,7 @@ namespace noissimEnvironment.LobbyScene
             {
                 pausePanel.SetActive(true);
                 skillPanel.SetActive(false);
+                playerEXPPanel.SetActive(false);
 
                 dim.DOFade(1f, 0.5f).SetEase(Ease.OutCubic);
                 textPause.DOFade(1f, 0.2f).SetEase(Ease.OutCubic).SetDelay(0.2f);
@@ -140,6 +148,7 @@ namespace noissimEnvironment.LobbyScene
             }
             else
             {
+                playerEXPPanel.SetActive(true);
                 dim.DOFade(0f, 0.5f).SetEase(Ease.OutCubic);
                 textPause.DOFade(0f, 0.2f).SetEase(Ease.OutCubic).SetDelay(0.2f);
                 TimeManipulator.GetInstance().InvokeActionAfterSeconds(0.25f, () =>
