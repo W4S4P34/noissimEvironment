@@ -2352,7 +2352,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672412757}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00000010431}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 516198848}
@@ -9583,6 +9583,8 @@ MonoBehaviour:
   skill2Button: {fileID: 1886859707}
   closeButton: {fileID: 925169278}
   applyButton: {fileID: 255627175}
+  playerLevel: {fileID: 1784042746}
+  playerEXPProgess: {fileID: 1912399538}
 --- !u!1001 &1701768988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10019,7 +10021,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784042744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00000010431}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 516198848}
