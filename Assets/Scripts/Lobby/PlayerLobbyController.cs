@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using noissimEnvironment.LobbyScene;
+using System;
 
 public class PlayerLobbyController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerLobbyController : MonoBehaviour
     [SerializeField]
     private GameObject NPCName;
 
+    [Space(10)]
     [Header("Skill Panel")]
     [SerializeField]
     private GameObject skillPanel;
@@ -37,6 +39,15 @@ public class PlayerLobbyController : MonoBehaviour
     [SerializeField]
     private GameObject applyButton;
 
+    [Space(10)]
+    [Header("Player EXP")]
+    [SerializeField]
+    private TextMeshProUGUI playerLevel;
+    [SerializeField]
+    private TextMeshProUGUI playerEXPProgess;
+
+    protected CharacterLevel characterLvl;
+
     private void Start()
     {
         alertText.SetActive(false);
@@ -54,6 +65,8 @@ public class PlayerLobbyController : MonoBehaviour
         closeBtn.onClick.AddListener(OnSkillPanelClick);
         Button applyBtn = applyButton.GetComponent<Button>();
         applyBtn.onClick.AddListener(OnSkillPanelClick);
+
+        characterLvl = new CharacterLevel();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -67,6 +80,7 @@ public class PlayerLobbyController : MonoBehaviour
             NPCName.SetActive(true);
         }
     }
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "DungeonEntrance")
@@ -137,7 +151,14 @@ public class PlayerLobbyController : MonoBehaviour
 
     private void Update()
     {
+        double level = characterLvl.calculateLevel();
+        Debug.Log(level);
 
+        int levelDisplayText = (int)level;
+        playerLevel.SetText(levelDisplayText.ToString());
+        double percentage = level - levelDisplayText;
+        int percentageDisplayText = (int) (percentage * 100f);
+        playerEXPProgess.SetText(percentageDisplayText.ToString() + "%/100%");
     }
 }
 
