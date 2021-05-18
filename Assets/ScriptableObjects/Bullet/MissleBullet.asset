@@ -18,6 +18,6 @@ MonoBehaviour:
   exceptionTag:
   - Player
   - NonInteractWithBullet
-  bulletCode: 2
+  bulletCode: 3
   pfExplosion: {fileID: 2677277473587596157, guid: ac0e33cec0c636849ad705a563c1b736,
     type: 3}

@@ -17,5 +17,5 @@ MonoBehaviour:
   projectileSpeed: 0
   exceptionTag:
   - Enemy
-  bulletCode: 3
+  bulletCode: 4
   pfExplosion: {fileID: 0}

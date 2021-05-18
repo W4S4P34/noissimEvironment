@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2200357997178124250}
   - component: {fileID: 2200357997178124230}
   - component: {fileID: 2200357997178124249}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: pfMissleBullet
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -134,4 +134,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletStat: {fileID: 11400000, guid: d33dca8ea01449240822fcb291edc8e0, type: 2}
+  bulletAnimator: {fileID: 0}
   radiusDamageArea: 2.5

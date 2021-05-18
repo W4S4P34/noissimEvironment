@@ -12,7 +12,7 @@ public class Bomb : Bullet
     [SerializeField]
     private float offsetY = 0f;
     [SerializeField]
-    private Animator animator = null;
+    private Animator explosionAnimator = null;
 
     #endregion
 
@@ -42,7 +42,7 @@ public class Bomb : Bullet
     public void Trigger(bool isCrit = false)
     {
         this.isCrit = isCrit;
-        animator?.Play("explosion");
+        explosionAnimator?.Play("explosion");
         Vector2 position = transform.position + Vector3.right * offsetX + Vector3.up * offsetY;
         var collisionObjects = Physics2D.OverlapCircleAll(position, radiusDamageArea);
         foreach (var item in collisionObjects)

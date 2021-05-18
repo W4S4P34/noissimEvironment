@@ -42,6 +42,11 @@ namespace noissimEnvironment.GameplayScene
         [SerializeField]
         private List<Sprite> bulletItemSprite;
 
+        [Header("Skills")]
+        [SerializeField]
+        private Image [] skillBackground;
+
+        #region Monobehaviour Methods
         // Start is called before the first frame update
         void Start()
         {
@@ -58,6 +63,7 @@ namespace noissimEnvironment.GameplayScene
             // Register action event
             ActionEventHandler.AddNewActionEvent(PlayerCombatEvent.SwapBullet, SwapBulletEvent);
             ActionEventHandler.AddNewActionEvent(PlayerCombatEvent.PickBulletItem, PickBulletItemEvent);
+            ActionEventHandler.AddNewActionEvent(SkillCastEvent.UIChangeEvent, CastSkill);
         }
 
         // Update is called once per frame
@@ -68,15 +74,18 @@ namespace noissimEnvironment.GameplayScene
                 OnPauseClick();
             }
         }
+        #endregion
 
-
+        #region Action event
         private void PickBulletItemEvent(object[] param)
         {
             if (param == null)
                 return;
             Sprite bulletSprite = (Sprite)param[1];
             bulletItemSprite.Add(bulletSprite);
+            bulletItemSize.DOFade(0f, 0);
             bulletItemSize.text = "2";
+            bulletItemSize.DOFade(1f, 0.4f).SetEase(Ease.OutCubic).SetDelay(0.15f);
             if (bulletItemSprite.Count >= 3)
                 bulletItemSprite.RemoveAt(0);
            var gradient = new Gradient();
@@ -87,6 +96,7 @@ namespace noissimEnvironment.GameplayScene
             colorKey[0].time = 0.0f;
             colorKey[1].color = Color.blue;
             colorKey[1].time = 1.0f;
+            
 
             // Populate the alpha  keys at relative time 0 and 1  (0 and 100%)
             var alphaKey = new GradientAlphaKey[2];
@@ -97,17 +107,30 @@ namespace noissimEnvironment.GameplayScene
 
             gradient.SetKeys(colorKey, alphaKey);
 
-            bulletItemSizeBg.DOGradientColor(gradient, 0.25f);
+            bulletItemSizeBg.DOGradientColor(gradient, 0.5f);
         }
 
         private void SwapBulletEvent(object[] param)
         {
+            if (param == null)
+                return;
             currentBulletItem.DOFade(0f, 0.2f);
             TimeManipulator.GetInstance().InvokeActionAfterSeconds(0.2f, () => {
                 currentBulletItem.sprite = bulletItemSprite[(int)param[0]];
                 currentBulletItem.DOFade(1f, 0.2f);
             });
         }
+
+        private void CastSkill(object[] param)
+        {
+            if (param == null)
+                return;
+            skillBackground[(int) param[2]].DOFillAmount(1f, 0f);
+            skillBackground[(int) param[2]].DOFillAmount(0f, (float) param[1]);
+        }
+
+        
+        #endregion
 
         #region On click event methods
         private void OnPauseClick()

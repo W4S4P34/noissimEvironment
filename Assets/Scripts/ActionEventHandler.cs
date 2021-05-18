@@ -12,9 +12,17 @@ public enum PlayerCombatEvent
 }
 public enum GameDungeonEvent
 {
+    PrepareDugeon,
     StartDungeon,
     Pause,
     EndGame,
+    Lose,
+}
+public enum SkillCastEvent
+{
+    UIChangeEvent,
+    Heal,
+    Invisible
 }
 
 public class UnityParamEvent : UnityEvent<object[]> { }

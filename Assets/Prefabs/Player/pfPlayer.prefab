@@ -234,9 +234,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityStat: {fileID: 554311503607626076}
-  animator: {fileID: 0}
+  animator: {fileID: 554311503607626077}
   listBullet:
   - {fileID: -5478155700546876539, guid: 72e3452e6abb51f4a9b1878417ebb075, type: 3}
+  listSkills:
+  - {fileID: 11400000, guid: b0802d450f5145d419b1aaf734834726, type: 2}
+  - {fileID: 11400000, guid: 5ff5a1cd25458154bbf7483daa94f3d2, type: 2}
 --- !u!114 &554311503607626076
 MonoBehaviour:
   m_ObjectHideFlags: 0

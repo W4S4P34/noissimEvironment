@@ -31,7 +31,7 @@ public class Mercurius : ChasingMinion
         isOnAction = true;
         attackMethod?.Invoke();
         // Add animation here
-
+        animator?.SetTrigger("onAttack");
         yield return new WaitForSeconds(fireRate);
         isOnAction = false;
         currentState = ChasingState.Chasing;

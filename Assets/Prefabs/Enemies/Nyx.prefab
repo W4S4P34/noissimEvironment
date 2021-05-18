@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 8236847634996357878}
   - component: {fileID: 8236847634996357879}
   - component: {fileID: 8236847634996357872}
+  - component: {fileID: 4584626271708609385}
   m_Layer: 0
   m_Name: Nyx
   m_TagString: Enemy
@@ -151,15 +152,15 @@ SpriteRenderer:
   m_SortingLayerID: 1908940795
   m_SortingLayer: 2
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 03bb73a17291d384e8a5a8e26e8e5c56, type: 3}
-  m_Color: {r: 0.38679248, g: 0.19737162, b: 0.10034712, a: 1}
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &8236847634996357883
@@ -297,12 +298,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityStat: {fileID: 8236847634996357879}
-  animator: {fileID: 0}
+  animator: {fileID: 4584626271708609385}
+  spawnSign: {fileID: 8753790186154401303, guid: 52de63760016e9c489de7ff310bb8002,
+    type: 3}
+  spawnLifeTime: 1
+  spriteRenderer: {fileID: 8236847634996357882}
   attackRange: 2
   attackType: 1
   pfBullet: {fileID: 7121078321834406567, guid: 48489072b75b43a4db426c02858044e6,
     type: 3}
   fireRate: 1
+--- !u!95 &4584626271708609385
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236847634996357873}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d0235c034a036d44a9695b470f597cb0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8236847635479951159
 GameObject:
   m_ObjectHideFlags: 0

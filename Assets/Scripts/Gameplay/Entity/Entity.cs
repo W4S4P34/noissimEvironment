@@ -12,6 +12,7 @@ public abstract class Entity : MonoBehaviour
     protected EntityStats entityStat = null;
     [SerializeField]
     protected Animator animator = null;
+    protected bool isDeath = false;
     #endregion
 
     #region Private Fields
@@ -34,21 +35,21 @@ public abstract class Entity : MonoBehaviour
     // Callback function when player take damage
     public virtual void OnTakeDamage(IEntityDamageEvent e)
     {
+        if (isDeath)
+            return;
         var damage = e.GetDamage(ref isCrit);
         entityStat.TakeDamage(damage, OnDied);
         // Create pop up damage here
         PopupDamage.Create(transform.position, (int) damage, isCrit);
-        // Add animation hit here
-                
+        
     }
     #endregion
 
     #region Protected Methods
     // Callback function when player died
     protected virtual void OnDied() {
-        gameObject.SetActive(false);
-        // Add animation died here
-
+        isDeath = true;
+        TimeManipulator.GetInstance().InvokeActionAfterSeconds(1f, () => Destroy(gameObject));
     }
     #endregion
 }
