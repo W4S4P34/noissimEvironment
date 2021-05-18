@@ -20,8 +20,6 @@ public class LevelManager : MonoBehaviour
         ActionEventHandler.AddNewActionEvent(GameDungeonEvent.PrepareDugeon, PrepareDungeon);
         ActionEventHandler.AddNewActionEvent(GameDungeonEvent.StartDungeon, StartDungeon);
         ActionEventHandler.AddNewActionEvent(GameDungeonEvent.EndGame, EndLevel);
-
-        ActionEventHandler.Invoke(GameDungeonEvent.PrepareDugeon);
     }
     private void Update()
     {
@@ -33,6 +31,8 @@ public class LevelManager : MonoBehaviour
     {
         Destroy(pfGoPopup);
         Destroy(pfGoPopupParticle);
+
+        TreasureChest.CreateTreasureChest(GameDataHandler.instance.listLevel[GameDataHandler.instance.currentLevel].itemChest, GameDataHandler.instance.listLevel[GameDataHandler.instance.currentLevel].maxItemPerTreasure, GameObject.FindGameObjectWithTag("Player").transform.position);
     }
 
     private void PrepareDungeon()
@@ -46,14 +46,6 @@ public class LevelManager : MonoBehaviour
         TimeManipulator.GetInstance().InvokeActionAfterSeconds(2f, () =>
         {
             ActionEventHandler.Invoke(GameDungeonEvent.StartDungeon);
-            //GameDataHandler.instance.listLevel[GameDataHandler.instance.currentLevel].listEnemies[0].Instantiate(Vector3.zero);
-            //GameDataHandler.instance.listLevel[GameDataHandler.instance.currentLevel].listEnemies[1].Instantiate(Vector3.zero + Vector3.up * 3f);
-            //GameDataHandler.instance.listLevel[GameDataHandler.instance.currentLevel].listEnemies[2].Instantiate(Vector3.zero + Vector3.right * 5f);
-            //GameDataHandler.instance.listLevel[GameDataHandler.instance.currentLevel].boss.Instantiate(Vector3.zero - Vector3.right * 5f);
-            //TimeManipulator.GetInstance().InvokeActionAfterSeconds(1f, () =>
-            //{
-            //    TreasureChest.CreateTreasureChest(GameDataHandler.instance.listLevel[GameDataHandler.instance.currentLevel].itemChest, GameDataHandler.instance.listLevel[GameDataHandler.instance.currentLevel].maxItemPerTreasure, new Vector3(-1.1f, -6.6f));
-            //});
         });
 
     }

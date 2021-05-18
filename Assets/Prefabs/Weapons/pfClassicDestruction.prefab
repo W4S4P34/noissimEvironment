@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6668725190202456789}
   - component: {fileID: 6668725190202456790}
   - component: {fileID: 6668725190202456791}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: pfClassicDestruction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,9 +71,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1908940795
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: b285715aebff51f49987fa14bbf32b7f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -154,7 +154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletStat: {fileID: 11400000, guid: 862883dfa1a68864aa5e803bfcfaaa87, type: 2}
-  bulletAnimator: {fileID: 0}
   radiusDamageArea: 2.5
   offsetX: 0.2
   offsetY: -1

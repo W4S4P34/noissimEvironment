@@ -731,7 +731,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   spawnSign: {fileID: 8753790186154401303, guid: 52de63760016e9c489de7ff310bb8002,
     type: 3}
-  spawnLifeTime: 2
+  spawnLifeTime: 1
   attackRange: 9
   fireRate: 1
   targetLayerMask:

@@ -158,6 +158,7 @@ public class DungeonMapRandomBuilder : MonoBehaviour
 
             // yield return new WaitForSeconds(.5f);
         }
+        ActionEventHandler.Invoke(GameDungeonEvent.PrepareDugeon);
     }
 
     private void addNeighbour(

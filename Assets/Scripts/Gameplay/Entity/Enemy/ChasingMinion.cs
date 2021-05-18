@@ -94,6 +94,8 @@ public abstract class ChasingMinion : Enemy
     public override void OnTakeDamage(IEntityDamageEvent e)
     {
         base.OnTakeDamage(e);
+        if (isDeath)
+            return;
         // Add animation hit here
         animator?.SetTrigger("onHit");
     }
@@ -102,6 +104,7 @@ public abstract class ChasingMinion : Enemy
     {
         base.OnDied();
         aiPath.canMove = false;
+        isDeath = true;
         // Add animation death here
         animator?.SetTrigger("onDie");
     }
