@@ -19,7 +19,7 @@ MonoBehaviour:
   - {fileID: 4547731352842746640, guid: 0093f78d402a6e34589ef4f20486ef02, type: 3}
   - {fileID: 8236847634996357873, guid: acd6b0587b1e7d74cac6956abc21f6dc, type: 3}
   boss: {fileID: 6081126727505208642, guid: f2ee164088437fc418e53377b9586a7f, type: 3}
-  maxItemPerTreasure: 3
+  maxItemPerTreasure: 5
   itemChest:
   - {fileID: 238395060862492161, guid: b9de9786c0067c345be6a8c80ea787bf, type: 3}
   - {fileID: 7623017472648845683, guid: 664bd19c986064d46be4f32849f501c7, type: 3}

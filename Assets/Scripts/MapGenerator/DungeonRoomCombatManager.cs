@@ -125,10 +125,9 @@ public class DungeonRoomCombatManager : MonoBehaviour
                     );
             } while (obstacle != null);
 
-            enemies[i] = 
-                Instantiate(enemies[i], spawnPoint, Quaternion.identity);
-
             enemyEvents[i] = enemies[i].gameObject.GetComponent<Enemy>();
+            enemyEvents[i] = enemyEvents[i].Instantiate(spawnPoint);
+            enemies[i] = enemyEvents[i].gameObject;
             enemyEvents[i].EnemyDie += DungeonRoomCombatManager_EnemyDie;
         }
     }

@@ -26,7 +26,7 @@ public class EntityStats : MonoBehaviour
     protected float currentHp;
     protected float currentArmor;
     protected const float MIN_HEALTH = 0f;
-    protected float smoothDuration = 1f;
+    protected float smoothDuration = 0.5f;
     #endregion
 
     #region Monobehavior Methods

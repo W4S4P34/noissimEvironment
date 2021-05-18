@@ -18,7 +18,7 @@ public abstract class Enemy : Entity
     [SerializeField]
     protected GameObject spawnSign;
     [SerializeField]
-    protected float spawnLifeTime = 2f;
+    protected float spawnLifeTime = 1f;
     protected AIPath aiPath = null;
     protected AIDestinationSetter aiDestinationSetter = null;
     protected GameObject player = null;
@@ -42,15 +42,17 @@ public abstract class Enemy : Entity
             return Instantiate(gameObject, spawnPosition, Quaternion.identity)?.GetComponent<Enemy>();
         var spawnSignTmp = Instantiate(spawnSign, spawnPosition, spawnSign.transform.rotation);
         var enemySpawnTmp = Instantiate(gameObject, spawnPosition, Quaternion.identity)?.GetComponent<Enemy>();
-        if(enemySpawnTmp.animator != null)
-            animator.enabled = false;
+        enemySpawnTmp.GetComponent<Collider2D>().enabled = false;
+        if (enemySpawnTmp.animator != null)
+            enemySpawnTmp.animator.enabled = false;
         enemySpawnTmp.enabled = false;
         enemySpawnTmp.transform.DOMoveY(spawnPosition.y + 1f, spawnLifeTime);
         TimeManipulator.GetInstance().InvokeActionAfterSeconds(spawnLifeTime, () => {
             Destroy(spawnSignTmp);
             enemySpawnTmp.enabled = true;
             if (enemySpawnTmp.animator != null)
-                animator.enabled = true;
+                enemySpawnTmp.animator.enabled = true;
+            enemySpawnTmp.GetComponent<Collider2D>().enabled = true;
         });
         return enemySpawnTmp;
     }
@@ -58,8 +60,9 @@ public abstract class Enemy : Entity
 
     protected override void OnDied()
     {
-        EnemyDie?.Invoke(this, EventArgs.Empty);
         base.OnDied();
+        GetComponent<Collider2D>().enabled = false;
+        EnemyDie?.Invoke(this, EventArgs.Empty);
     }
 
 }
