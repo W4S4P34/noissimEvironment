@@ -12,6 +12,8 @@ public abstract class ChasingMinion : Enemy
 {
     #region Protected Fields
     [Header("GENERAL FIELDS")]
+    [SerializeField]
+    protected SpriteRenderer spriteRenderer;
     [SerializeField, Range(1f, 10f)]
     protected float attackRange = 2f;
     [SerializeField]
@@ -45,6 +47,14 @@ public abstract class ChasingMinion : Enemy
     }
     protected void FixedUpdate()
     {
+        if (isDeath)
+            return;
+        var direction = (aiDestinationSetter.target.position - transform.position).normalized;
+        if(Mathf.Abs(Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg) > 90f)
+            spriteRenderer.flipX = true;
+        else
+            spriteRenderer.flipX = false;
+
         if (!isOnAction)
         {
             switch (currentState)
@@ -79,6 +89,21 @@ public abstract class ChasingMinion : Enemy
         _bullet.SetActive(true);
         _bullet.transform.position = transform.position + shootDirection;
         _bullet.GetComponent<Bullet>().Setup(shootDirection);
+    }
+
+    public override void OnTakeDamage(IEntityDamageEvent e)
+    {
+        base.OnTakeDamage(e);
+        // Add animation hit here
+        animator?.SetTrigger("onHit");
+    }
+
+    protected override void OnDied()
+    {
+        base.OnDied();
+        aiPath.canMove = false;
+        // Add animation death here
+        animator?.SetTrigger("onDie");
     }
     #endregion
 

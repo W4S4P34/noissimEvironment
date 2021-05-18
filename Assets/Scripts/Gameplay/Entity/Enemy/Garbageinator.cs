@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -16,7 +16,8 @@ public class Garbageinator : Enemy
     private List<Color> healthPhaseColor = null;
     [SerializeField]
     private Vector2 attackRange;
-
+    [SerializeField]
+    private Vector3 offset;
     
 
     [Header("Phase 1")]
@@ -42,12 +43,13 @@ public class Garbageinator : Enemy
     private bool bombSign;
     [SerializeField, DrawIf("bombSign", true)]
     private float spawnSignLiveTime = 1f;
+    [SerializeField]
+    private float minSpawnDistance = 5f;
 
     private const ObjectPoolCode spawnPositionSignCode = ObjectPoolCode.SpawnPositionSign_1;
     private const int spawnPositionSignIndex = 0;
 
-    [SerializeField]
-    private float minSpawnDistance = 5f;
+
 
 
     
@@ -84,7 +86,9 @@ public class Garbageinator : Enemy
 
     private void Update()
     {
-        if(!isOnAction)
+        if (isDeath)
+            return;
+        if (!isOnAction)
             phaseAttack.Invoke();
     }
 
@@ -92,7 +96,8 @@ public class Garbageinator : Enemy
     {
         // Orange
         Gizmos.color = new Color(1.0f, 0.5f, 0.0f);
-        Gizmos.DrawWireCube(transform.position, attackRange);
+        Gizmos.DrawWireCube(transform.position + offset, attackRange);
+        Gizmos.DrawWireSphere(transform.position + offset, 1f);
     }
     #endregion
 
@@ -125,7 +130,7 @@ public class Garbageinator : Enemy
     {
         var _bullet = ObjectPool.GetObject(pfBullet.GetBulletCode());
         _bullet.SetActive(true);
-        _bullet.transform.position = transform.position + shootDirection;
+        _bullet.transform.position = transform.position + offset + shootDirection;
         _bullet.GetComponent<Bullet>().Setup(shootDirection);
     }
 
@@ -175,7 +180,7 @@ public class Garbageinator : Enemy
         isOnAction = true;
         TimeManipulator.GetInstance().InvokeRepeatAction(0.3f, 6, () => {
             var targetPosition = aiDestinationSetter.target.position;
-            var shootDirection = (targetPosition - transform.position).normalized;
+            var shootDirection = (targetPosition - (transform.position + offset)).normalized;
             Shoot(shootDirection, pfSimpleBullet);
             for (int i = 1; i <= bulletPerClip / 2; i++)
             {
@@ -322,4 +327,38 @@ public class Garbageinator : Enemy
         return spawnPositions;
     }
     #endregion
+
+    public override Enemy Instantiate(Vector3 spawnPosition)
+    {
+        if (spawnSign == null)
+            return Instantiate(gameObject, spawnPosition, Quaternion.identity)?.GetComponent<Enemy>();
+        Instantiate(spawnSign, spawnPosition + offset + Vector3.right*0.25f - Vector3.up*0.25f, spawnSign.transform.rotation);
+        var enemySpawnTmp = Instantiate(gameObject, spawnPosition, Quaternion.identity)?.GetComponent<Enemy>();
+        enemySpawnTmp.GetComponent<Animator>().enabled = false;
+        enemySpawnTmp.enabled = false;
+        enemySpawnTmp.transform.DOMoveY(enemySpawnTmp.transform.position.y + 1f, spawnLifeTime);
+        TimeManipulator.GetInstance().InvokeActionAfterSeconds(spawnLifeTime, () => {
+            enemySpawnTmp.enabled = true;
+            enemySpawnTmp.GetComponent<Animator>().enabled = true;
+        });
+        return enemySpawnTmp;
+    }
+
+    public override void OnTakeDamage(IEntityDamageEvent e)
+    {
+        base.OnTakeDamage(e);
+        // Add animation hit here
+        animator?.SetTrigger("onHit");
+    }
+
+    protected override void OnDied()
+    {
+        isDeath = true;
+        // Add animation death here
+        animator?.SetTrigger("onDie");
+        transform.position += offset;
+        ActionEventHandler.Invoke(GameDungeonEvent.EndGame);
+        TimeManipulator.GetInstance().InvokeActionAfterSeconds(3f, () => gameObject.SetActive(false));
+        
+    }
 }

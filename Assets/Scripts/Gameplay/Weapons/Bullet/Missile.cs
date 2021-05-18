@@ -8,7 +8,7 @@ public class Missile : Bullet
     [SerializeField]
     private float radiusDamageArea = 0.5f;
 
-    private GameObject selfExplosion = null;
+    
     #region Monobehaviour Methods
     protected override void Start()
     {
@@ -38,15 +38,11 @@ public class Missile : Bullet
         selfExplosion.transform.position = transform.position;
         selfExplosion.transform.rotation = transform.rotation;
         selfExplosion.SetActive(true);
-        TimeManipulator.GetInstance().InvokeActionAfterSeconds(0.5f, FinishedExplosion);
+        TimeManipulator.GetInstance().InvokeActionAfterSeconds(0.5f, () => selfExplosion.SetActive(false));
         ObjectPool.ReturnObject(bulletStat.bulletCode, gameObject);
         gameObject.SetActive(false);
         
     }
 
-    private void FinishedExplosion()
-    {
-        selfExplosion.SetActive(false);
-    }
     #endregion
 }

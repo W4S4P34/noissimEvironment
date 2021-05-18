@@ -53,15 +53,13 @@ public class EntityStats : MonoBehaviour
         if (armorBar && currentArmor > 0)
         {
             // Calculate current armor here
-            currentArmor -= damage;
-            if (currentArmor <= MIN_HEALTH)
-                currentArmor = 0;
+            currentArmor = Mathf.Clamp(currentArmor-damage, MIN_HEALTH, maxArmor);
             armorBar.DOValue(currentArmor, smoothDuration).SetEase(Ease.Linear);
             armorText?.SetText((currentArmor / maxArmor * 100).ToString() + "%");
             return;
         }
         // Calculate current HP here
-        currentHp -= damage;
+        currentHp = Mathf.Clamp(currentHp-damage, MIN_HEALTH, maxHp);
         healthBar.DOValue(currentHp, smoothDuration).SetEase(Ease.Linear);
         healthText?.SetText((currentHp / maxHp * 100).ToString() + "%");
         if (currentHp <= MIN_HEALTH)

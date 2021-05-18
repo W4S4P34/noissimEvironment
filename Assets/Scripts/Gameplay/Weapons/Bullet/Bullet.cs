@@ -10,10 +10,12 @@ public class Bullet : MonoBehaviour, IEntityDamageEvent
     [SerializeField]
     protected BulletStats bulletStat;
     protected new Rigidbody2D rigidbody2D;
+    protected bool isCrit;
+    protected GameObject selfExplosion = null;
     #endregion
 
     #region Private Fields
-    protected bool isCrit;
+
     #endregion
 
     #region Monobehaviour Methods
@@ -36,8 +38,22 @@ public class Bullet : MonoBehaviour, IEntityDamageEvent
         var entity = collision.GetComponent<Entity>();
         entity?.OnTakeDamage(this);
         isCrit = false;
-        ObjectPool.ReturnObject(bulletStat.bulletCode, gameObject);
-        gameObject.SetActive(false);
+        if (bulletStat.pfExplosion)
+        {
+            if (!selfExplosion)
+                selfExplosion = Instantiate(bulletStat.pfExplosion.gameObject);
+            selfExplosion.transform.position = transform.position;
+            selfExplosion.transform.rotation = transform.rotation;
+            selfExplosion.SetActive(true);
+            TimeManipulator.GetInstance().InvokeActionAfterSeconds(1f, () => selfExplosion.SetActive(false));
+            ObjectPool.ReturnObject(bulletStat.bulletCode, gameObject);
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            ObjectPool.ReturnObject(bulletStat.bulletCode, gameObject);
+            gameObject.SetActive(false);
+        }
     }
     #endregion
 

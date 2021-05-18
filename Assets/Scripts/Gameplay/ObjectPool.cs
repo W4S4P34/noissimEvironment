@@ -5,6 +5,7 @@ using System;
 public enum ObjectPoolCode
 {
     KuornosBullet,
+    ClassicBullet_2,
     ClassicBulletMonster,
     ClassicMissleBullet,
     ClassicDestructionBullet,

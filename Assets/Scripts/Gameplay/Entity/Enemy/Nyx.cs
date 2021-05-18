@@ -18,6 +18,7 @@ public class Nyx : ChasingMinion
     }
     #endregion
 
+
     #region Protected Methods
     protected override void LongRangeAttack()
     {

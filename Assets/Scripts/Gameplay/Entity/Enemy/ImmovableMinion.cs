@@ -37,6 +37,8 @@ public abstract class ImmovableMinion : Enemy
     }
     protected void FixedUpdate()
     {
+        if (isDeath)
+            return;
         if (!isOnAction)
         {
             switch (currentState)

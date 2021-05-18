@@ -20,20 +20,24 @@ public class BulletOrp : Item
     // Start is called before the first frame update
     protected override void Start()
     {
-
+        
     }
     protected override void Update()
     {
-        var colliderObjects = Physics2D.OverlapCircleAll(transform.position + offset, eventTriggerRange);
-        foreach (var item in colliderObjects)
+        if (!isOnAction)
         {
-            if (item.CompareTag("Player") && item.gameObject.layer == LayerMask.NameToLayer("Player"))
+            var colliderObjects = Physics2D.OverlapCircleAll(transform.position + offset, eventTriggerRange);
+            foreach (var item in colliderObjects)
             {
-                TriggerCloseEnough();
-                return;
+                if (item.CompareTag("Player") && item.gameObject.layer == LayerMask.NameToLayer("Player"))
+                {
+                    TriggerCloseEnough();
+                    return;
+                }
             }
+            TriggerExitBound();
         }
-        TriggerExitBound();
+        dropDownItem?.Invoke();
     }
     protected override void OnDrawGizmosSelected()
     {

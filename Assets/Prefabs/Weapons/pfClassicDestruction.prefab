@@ -154,7 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletStat: {fileID: 11400000, guid: 862883dfa1a68864aa5e803bfcfaaa87, type: 2}
+  bulletAnimator: {fileID: 0}
   radiusDamageArea: 2.5
   offsetX: 0.2
   offsetY: -1
-  animator: {fileID: 6668725190202456794}
+  explosionAnimator: {fileID: 6668725190202456794}
