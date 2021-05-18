@@ -9,10 +9,17 @@ public class DungeonRoomBuilder : MonoBehaviour
     // List of rooms
     [SerializeField] private GameObject[] rooms;
 
+    private Vector3 position;
+
     private bool isRootRoom;
     private bool isBossRoom;
 
     #region Properties
+
+    public Vector3 Position
+    {
+        get { return position; }
+    }
 
     public bool CheckRootRoom
     {
@@ -32,10 +39,11 @@ public class DungeonRoomBuilder : MonoBehaviour
         rooms[state].SetActive(true);
     }
 
-    public void updateRoomInformation(uint state, bool isRoot, bool isBoss)
+    public void updateRoomInformation(uint state, bool isRoot, bool isBoss, Vector3 position)
     {
         this.state = state;
         this.isRootRoom = isRoot;
         this.isBossRoom = isBoss;
+        this.position = position;
     }
 }

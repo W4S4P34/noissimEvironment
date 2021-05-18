@@ -10,6 +10,8 @@ public class DungeonMapRandomBuilder : MonoBehaviour
     private Vector3 bossPosition;
 
     // Room's size
+    [SerializeField] private GameObject room;
+
     private const int _ROOM_WIDTH_ = 34; // == _ROOM_HEIGHT_
     // private const int _ROOM_HEIGHT_ = 16;
 
@@ -32,6 +34,21 @@ public class DungeonMapRandomBuilder : MonoBehaviour
         get { return levelInformation; }
     }
 
+    public int[,] RandomMap
+    {
+        get { return randomMap; }
+    }
+
+    public Vector3 RootPosition
+    {
+        get { return rootPosition; }
+    }
+
+    public Vector3 BossPosition
+    {
+        get { return bossPosition; }
+    }
+
     #endregion
 
     /**
@@ -39,8 +56,7 @@ public class DungeonMapRandomBuilder : MonoBehaviour
      */
     [SerializeField] private GameObject player;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         _MIN_ROOM_ = levelInformation.minRoom;
         _MAX_ROOM_ = levelInformation.maxRoom;
@@ -54,7 +70,11 @@ public class DungeonMapRandomBuilder : MonoBehaviour
         randomMap = container.Item1;
         rootPosition = container.Item2;
         bossPosition = container.Item3;
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         /**
          * Player Initialization
          */
@@ -165,10 +185,13 @@ public class DungeonMapRandomBuilder : MonoBehaviour
         Vector3 actualPosition =
             new Vector3(position.y * _ROOM_WIDTH_, position.x * -_ROOM_WIDTH_);
 
+        actualPosition += this.room.transform.position;
+
         GameObject room = Instantiate(roomPrefab, actualPosition, Quaternion.identity);
-        
+        room.transform.parent = this.room.transform;
+
         room.GetComponent<DungeonRoomBuilder>()
-            .updateRoomInformation(state, isRoot, isBoss);
+            .updateRoomInformation(state, isRoot, isBoss, position);
     }
 
     private uint boolArrayToInt(bool[] boolArray)

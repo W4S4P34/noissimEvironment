@@ -18,6 +18,7 @@ public class DungeonRoomCombatManager : MonoBehaviour
     private DungeonRoomBuilder roomBuilder;
 
     [SerializeField] private GameObject doors;
+    [SerializeField] private GameObject entrance;
 
     // Activate combat
     [SerializeField] private DungeonRoomDoorActivators activator;
@@ -90,7 +91,12 @@ public class DungeonRoomCombatManager : MonoBehaviour
 
         _NUMBER_ENEMIES_--;
 
-        if (_NUMBER_ENEMIES_ == 0) EndBattle();
+        if (_NUMBER_ENEMIES_ == 0)
+        {
+            EndBattle();
+
+            entrance.gameObject.SetActive(true);
+        }
     }
 
     private void StartBattle()
