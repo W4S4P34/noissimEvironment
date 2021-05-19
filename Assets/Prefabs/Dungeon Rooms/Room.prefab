@@ -114914,7 +114914,7 @@ MonoBehaviour:
   doors: {fileID: 2195052449491323448}
   entrance: {fileID: 3646258877123812115}
   activator: {fileID: 1765885385310609134}
-  scouterColliderRadius: 1
+  scouterColliderRadius: 2
 --- !u!1 &7933835683462278418
 GameObject:
   m_ObjectHideFlags: 0

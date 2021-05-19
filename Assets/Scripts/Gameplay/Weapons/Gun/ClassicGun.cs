@@ -5,7 +5,10 @@ using UnityEngine;
 public class ClassicGun : Gun
 {
     #region Private Fields
-    
+    [SerializeField]
+    private AudioSource effectAudioSource;
+    [SerializeField]
+    private AudioClip fireAudioClip;
     #endregion
 
     #region Monobehaviour Methods
@@ -27,6 +30,8 @@ public class ClassicGun : Gun
     }
     public override IEnumerator Attack()
     {
+        effectAudioSource.clip = fireAudioClip;
+        effectAudioSource.Play();
         aimAnimator.SetTrigger("isShooting");
 
         Vector3 bulletPosition = weaponTransform.position;

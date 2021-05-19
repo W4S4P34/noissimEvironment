@@ -10,6 +10,7 @@ public class PlayerCombat : Entity
     [SerializeField]
     private List<Skill> listSkills;
 
+
     private bool [] isOnCastSkill = new bool[] { false, false };
     private bool isIntangible = false;
 
@@ -183,7 +184,7 @@ public class PlayerCombat : Entity
     protected override void OnDied()
     {
         isDeath = true;
-        ActionEventHandler.Invoke(GameDungeonEvent.EndGame);
+        ActionEventHandler.Invoke(GameDungeonEvent.LoseGame);
         gameObject.SetActive(false);
     }
     #endregion

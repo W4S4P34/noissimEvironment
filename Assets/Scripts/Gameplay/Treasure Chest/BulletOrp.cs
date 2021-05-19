@@ -70,7 +70,7 @@ public class BulletOrp : Item
         // Prevent instantiate too much
         if (ObjectPool.GetObject(pfBullet.GetBulletCode()) == null)
             ObjectPool.RegisterObjectPoolItem(pfBullet.GetBulletCode(), pfBullet.gameObject, 10);
-        ActionEventHandler.Invoke(PlayerCombatEvent.PickBulletItem, new object[] { pfBullet, sprite }, () => Destroy(gameObject));
+        ActionEventHandler.Invoke(PlayerCombatEvent.PickBulletItem, new object[] { pfBullet, sprite, gameObject }, null);
     }
     #endregion
 }

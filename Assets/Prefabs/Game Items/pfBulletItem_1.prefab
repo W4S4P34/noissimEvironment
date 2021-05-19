@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9000229777600375423}
   - component: {fileID: 491075640266030938}
   - component: {fileID: 2499255587620136207}
+  - component: {fileID: 5911069398540202287}
   m_Layer: 0
   m_Name: pfBulletItem_1
   m_TagString: NonInteractWithBullet
@@ -101,3 +102,22 @@ MonoBehaviour:
   description: 
   pfBullet: {fileID: 2200357997178124249, guid: 1fe9a0bb3f43dc041a09d8102592f281,
     type: 3}
+--- !u!95 &5911069398540202287
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4948492737674182590}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 123e659eb1600ab4bbf90602ac3d963a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

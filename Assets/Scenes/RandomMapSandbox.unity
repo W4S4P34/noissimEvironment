@@ -339,6 +339,26 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6757931631366561034, guid: 3e0a3e406606b4c4b8651be27e63ba64,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6832167689965739700, guid: 3e0a3e406606b4c4b8651be27e63ba64,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 178
+      objectReference: {fileID: 0}
+    - target: {fileID: 6832167689965739700, guid: 3e0a3e406606b4c4b8651be27e63ba64,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6832167689965739700, guid: 3e0a3e406606b4c4b8651be27e63ba64,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -155.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e0a3e406606b4c4b8651be27e63ba64, type: 3}
 --- !u!114 &132611319 stripped
@@ -1320,11 +1340,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pfAStar
-      objectReference: {fileID: 0}
-    - target: {fileID: 2546312575270816097, guid: 8808f82294a1e1346ae97c322782011b,
-        type: 3}
-      propertyPath: data.dataString
-      value: UEsDBBQAAAgIAAA4IexVuAtrUgIAAPcEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMziVjIA2lt9YQ0gOBCenk4ossr7AGWfJIcvga/ntXso1dckK8fbt6b3flCxHKlsCcNksjspXOgPwcEH8m3wZd8AWOdKfVVpyh5XyIzOWeRAPnjTqhER/5NKsLcEawX2onPTlCsFKCa1Mssh3E2jqLMKfSAoaMdj5bIXQZkCP+DGc+5YSn8dSfzniaRYMrHhkoB6ajtsThuOHVtEoxSYsSMq+5Y0+ilo+nQFTop+F47UxLKWwjhrhTGcxuyxwMeLeZoOgtCBg9fEcgB7HLnVfaz15zbsE18gw9zYXBJtVlyW9dd66gdl9L+6SygiBqOg6q6qqrL4ThKIS50cVLe/EoeHK5YPs3emLUul5v+/C8pz206EDlnqYSPnJQr3ppdKUyDDpT+dTKwnje/b15i3Ng+w6vpd6BVfl1Qu0gvYdrsH+MpShSH3p4rIGt1KHjYf5gcDZ/UHDYDtuUQNSr+Gvhne76a9QEnoWxDkONS+XlpboynkoWoWfeTeVibRQEuBFdgqLSnTZYxt3P8C7Wu/Yu8kz9g2kub2LtO7hLCXDHj6K70EYfbsOyuT6swObrykmhoBPtA6/Yp1grVa9Yvydt2rYynLJe2q4S2f+rRSL+g48mkwnj49FjOn0aUjZhEZulfMZpOmNPJOyeUOiTyk0ttGkPTk11xRXuWfsdGSwNLcO6Z4YeluJc6F7LheJ6ywyAWtcVbsLB4CX4LrNFJrBBW3BOqDBvckmI1GwPWXIrlASni6MzNOmqJKQUn9p5JCFx+HAk5Equ/wBQSwMEFAAACAgAADgh7L0U6eVtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTVUVBKL0osyCgGihiCOKWZKSB2tJJBmkWaobGxcXKakaFJkrmZbmKycbJBsmVSmmVaYpJlsplSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAADgh7FW4C2tSAgAA9wQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAADgh7L0U6eVtAAAAeAAAAAkAJAAAAAAAAAAAAAAAnwIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABXAwAAAAA=
       objectReference: {fileID: 0}
     - target: {fileID: 2546312575270816098, guid: 8808f82294a1e1346ae97c322782011b,
         type: 3}
@@ -2868,10 +2883,5 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 2033073521}
-    - target: {fileID: 554311504217916875, guid: 160067e96737e544598d252a77eb0a8c,
-        type: 3}
-      propertyPath: critChance
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 160067e96737e544598d252a77eb0a8c, type: 3}

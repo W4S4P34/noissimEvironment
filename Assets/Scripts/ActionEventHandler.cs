@@ -16,7 +16,7 @@ public enum GameDungeonEvent
     StartDungeon,
     Pause,
     EndGame,
-    Lose,
+    LoseGame,
 }
 public enum SkillCastEvent
 {
