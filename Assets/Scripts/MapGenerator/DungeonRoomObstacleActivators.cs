@@ -31,6 +31,8 @@ public class DungeonRoomObstacleActivators : MonoBehaviour
         
         int randomFactor = Random.Range(0, obstacles.Length);
         obstacles[randomFactor].SetActive(true);
+        AstarPath.active.Scan(AstarPath.active.data.gridGraph);
+
 
         gameObject.SetActive(false);
     }

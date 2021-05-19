@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d9dd1c14940794bb59ced9a96ab388, type: 3}
   m_Name: ClassicBulletMonster
   m_EditorClassIdentifier: 
-  damage: 50
+  damage: 100
   repulsiveForce: 0
-  projectileSpeed: 10
+  projectileSpeed: 5
   exceptionTag:
   - Enemy
   bulletCode: 2

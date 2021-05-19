@@ -87,8 +87,6 @@ public class DungeonRoomCombatManager : MonoBehaviour
 
     private void DungeonRoomCombatManager_EnemyDie(object sender, System.EventArgs e)
     {
-        ((Enemy)sender).EnemyDie -= DungeonRoomCombatManager_EnemyDie;
-
         _NUMBER_ENEMIES_--;
 
         if (_NUMBER_ENEMIES_ == 0)
@@ -97,6 +95,8 @@ public class DungeonRoomCombatManager : MonoBehaviour
 
             entrance.gameObject.SetActive(true);
         }
+
+        ((Enemy)sender).EnemyDie -= DungeonRoomCombatManager_EnemyDie;
     }
 
     private void StartBattle()

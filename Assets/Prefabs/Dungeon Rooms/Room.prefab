@@ -48683,7 +48683,7 @@ GameObject:
   - component: {fileID: 5341336351833057392}
   m_Layer: 0
   m_Name: Minimap Activators
-  m_TagString: Untagged
+  m_TagString: NonInteractWithBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130846,7 +130846,7 @@ GameObject:
   - component: {fileID: 838741021734004890}
   m_Layer: 0
   m_Name: Obstacle Activators
-  m_TagString: Untagged
+  m_TagString: NonInteractWithBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138346,7 +138346,7 @@ GameObject:
   - component: {fileID: 1765885385310609134}
   m_Layer: 0
   m_Name: Door Activators
-  m_TagString: Untagged
+  m_TagString: NonInteractWithBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
