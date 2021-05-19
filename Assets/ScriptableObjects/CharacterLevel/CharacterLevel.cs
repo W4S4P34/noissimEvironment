@@ -11,8 +11,6 @@ public class CharacterLevel : ScriptableObject
     {
         long currentExp = ProgressSerial.getInstance().ExpToSave;
 
-        Debug.Log(currentExp);
-
         double level = 1;
 
         for(int i = 0; i < expStage.Length; i++)

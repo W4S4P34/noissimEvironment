@@ -9,6 +9,7 @@ namespace noissimEnvironment.LobbyScene
 {
     public class UIController : MonoBehaviour
     {
+        [Space(10)]
         [Header("Pause Panel")]
         [SerializeField]
         private GameObject pausePanel;
@@ -33,25 +34,54 @@ namespace noissimEnvironment.LobbyScene
         private Image dim;
 
         [Space(10)]
-        [Header("========== Panel Settings ==========")]
+        [Header("Panel Settings")]
         [SerializeField]
-        private GameObject panelSettings = null;
+        private GameObject panelSettings;
 
         [Space(10)]
-        [Header("========== Panel Settings ==========")]
+        [Header("Panel Skill")]
         [SerializeField]
-        private GameObject skillPanel = null;
+        private GameObject skillPanel;
+        [SerializeField]
+        private Image background;
+        [SerializeField]
+        private GameObject skillPanelText;
+
+        [SerializeField]
+        private GameObject skill1Description;
+        [SerializeField]
+        private GameObject skill2Description;
+
+        [SerializeField]
+        private GameObject skill1Button;
+        [SerializeField]
+        private GameObject skill2Button;
+
+        [SerializeField]
+        private GameObject closeButton;
+        [SerializeField]
+        private GameObject applyButton;
 
         [Space(10)]
-        [Header("========== Panel Settings ==========")]
+        [Header("Panel Player Experience")]
         [SerializeField]
         private GameObject playerEXPPanel = null;
 
         // Start is called before the first frame update
         void Start()
         {
-            panelSettings.SetActive(false);
             skillPanel.SetActive(false);
+            skill1Description.SetActive(false);
+            skill2Description.SetActive(false);
+            Button skill_1 = skill1Button.gameObject.GetComponent<Button>();
+            skill_1.onClick.AddListener(skill1Click);
+            Button skill_2 = skill2Button.gameObject.GetComponent<Button>();
+            skill_2.onClick.AddListener(skill2Click);
+            Button closeBtn = closeButton.gameObject.GetComponent<Button>();
+            closeBtn.onClick.AddListener(displaySkillPanel);
+            Button applyBtn = applyButton.gameObject.GetComponent<Button>();
+            applyBtn.onClick.AddListener(displaySkillPanel);
+
             dim.DOFade(0f, 0f);
             textPause.DOFade(0, 0f);
             exitButton.transform.DOScale(Vector3.zero, 0f);
@@ -171,9 +201,52 @@ namespace noissimEnvironment.LobbyScene
         {
             panelSettings.SetActive(state);
         }
+
         public void OnClick_Setting()
         {
             SetActivePanelSettings(!panelSettings.activeSelf);
+        }
+
+        public void displaySkillPanel()
+        {
+            if (!skillPanel.activeSelf)
+            {
+                skillPanel.SetActive(true);
+                skill1Description.SetActive(false);
+                skill1Description.SetActive(false);
+            }
+            else
+            {
+                skillPanel.SetActive(false);
+                skill1Description.SetActive(false);
+                skill1Description.SetActive(false);
+            }
+        }
+
+        private void skill1Click()
+        {
+            if (!skill1Description.activeSelf)
+            {
+                skill1Description.SetActive(true);
+                skill2Description.SetActive(false);
+            }
+            else
+            {
+                skill1Description.SetActive(false);
+            }
+        }
+
+        private void skill2Click()
+        {
+            if (!skill2Description.activeSelf)
+            {
+                skill2Description.SetActive(true);
+                skill1Description.SetActive(false);
+            }
+            else
+            {
+                skill2Description.SetActive(false);
+            }
         }
         #endregion
 

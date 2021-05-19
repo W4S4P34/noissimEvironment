@@ -1490,7 +1490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &446176185
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9087,6 +9087,14 @@ MonoBehaviour:
   dim: {fileID: 421653610}
   panelSettings: {fileID: 1976079184}
   skillPanel: {fileID: 350942022}
+  background: {fileID: 1768145604}
+  skillPanelText: {fileID: 2046545822}
+  skill1Description: {fileID: 1940043377}
+  skill2Description: {fileID: 446176184}
+  skill1Button: {fileID: 645118729}
+  skill2Button: {fileID: 1886859707}
+  closeButton: {fileID: 925169278}
+  applyButton: {fileID: 255627175}
   playerEXPPanel: {fileID: 516198847}
 --- !u!1 &1454472399 stripped
 GameObject:
@@ -9574,17 +9582,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alertText: {fileID: 1064419612}
   NPCName: {fileID: 75419370}
-  skillPanel: {fileID: 350942022}
-  background: {fileID: 1768145604}
-  skillPanelText: {fileID: 2046545822}
-  skill1Description: {fileID: 1940043377}
-  skill2Description: {fileID: 446176184}
-  skill1Button: {fileID: 645118729}
-  skill2Button: {fileID: 1886859707}
-  closeButton: {fileID: 925169278}
-  applyButton: {fileID: 255627175}
   playerLevel: {fileID: 1784042746}
   playerEXPProgess: {fileID: 1912399538}
+  uiControllerGameObject: {fileID: 1426379681}
 --- !u!1001 &1701768988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10690,7 +10690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1940043378
 RectTransform:
   m_ObjectHideFlags: 0

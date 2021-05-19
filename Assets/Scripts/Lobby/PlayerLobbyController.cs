@@ -15,31 +15,6 @@ public class PlayerLobbyController : MonoBehaviour
     private GameObject NPCName;
 
     [Space(10)]
-    [Header("Skill Panel")]
-    [SerializeField]
-    private GameObject skillPanel;
-
-    [SerializeField]
-    private Image background;
-    [SerializeField]
-    private GameObject skillPanelText;
-
-    [SerializeField]
-    private GameObject skill1Description;
-    [SerializeField]
-    private GameObject skill2Description;
-
-    [SerializeField]
-    private GameObject skill1Button;
-    [SerializeField]
-    private GameObject skill2Button;
-
-    [SerializeField]
-    private GameObject closeButton;
-    [SerializeField]
-    private GameObject applyButton;
-
-    [Space(10)]
     [Header("Player EXP")]
     [SerializeField]
     private TextMeshProUGUI playerLevel;
@@ -47,26 +22,21 @@ public class PlayerLobbyController : MonoBehaviour
     private TextMeshProUGUI playerEXPProgess;
 
     protected CharacterLevel characterLvl;
+    [SerializeField]
+    protected GameObject uiControllerGameObject;
+    private UIController uiController;
 
     private void Start()
     {
         alertText.SetActive(false);
         NPCName.SetActive(false);
 
-        skillPanel.SetActive(false);
-        skill1Description.SetActive(false);
-        skill2Description.SetActive(false);
-
-        Button skill_1 = skill1Button.GetComponent<Button>();
-        skill_1.onClick.AddListener(skill1Click);
-        Button skill_2 = skill2Button.GetComponent<Button>();
-        skill_2.onClick.AddListener(skill2Click);
-        Button closeBtn = closeButton.GetComponent<Button>();
-        closeBtn.onClick.AddListener(OnSkillPanelClick);
-        Button applyBtn = applyButton.GetComponent<Button>();
-        applyBtn.onClick.AddListener(OnSkillPanelClick);
-
         characterLvl = new CharacterLevel();
+    }
+
+    private void Awake()
+    {
+        uiController = uiControllerGameObject.GetComponent<UIController>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -109,50 +79,12 @@ public class PlayerLobbyController : MonoBehaviour
 
     public void OnSkillPanelClick()
     {
-        if (!skillPanel.activeSelf)
-        {
-            skillPanel.SetActive(true);
-            skill1Description.SetActive(false);
-            skill1Description.SetActive(false);
-        }
-        else
-        {
-            skillPanel.SetActive(false);
-            skill1Description.SetActive(false);
-            skill1Description.SetActive(false);
-        }
-    }
-
-    private void skill1Click()
-    {
-        if (!skill1Description.activeSelf)
-        {
-            skill1Description.SetActive(true);
-            skill2Description.SetActive(false);
-        }
-        else
-        {
-            skill1Description.SetActive(false);
-        }
-    }
-
-    private void skill2Click()
-    {
-        if (!skill2Description.activeSelf)
-        {
-            skill2Description.SetActive(true);
-            skill1Description.SetActive(false);
-        }
-        else
-        {
-            skill2Description.SetActive(false);
-        }
+        uiController.displaySkillPanel();
     }
 
     private void Update()
     {
         double level = characterLvl.calculateLevel();
-        Debug.Log(level);
 
         int levelDisplayText = (int)level;
         playerLevel.SetText(levelDisplayText.ToString());
