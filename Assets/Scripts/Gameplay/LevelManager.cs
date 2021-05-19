@@ -12,6 +12,10 @@ public class LevelManager : MonoBehaviour
     private GameObject pfGoPopupParticle;
     [SerializeField]
     private GameObject pfWinPopup;
+    [SerializeField]
+    private GameObject pfLosePopup;
+    [SerializeField]
+    private AudioSource audioSource;
 
     [SerializeField]
     private GameObject resultPanel;
@@ -29,6 +33,7 @@ public class LevelManager : MonoBehaviour
         ActionEventHandler.AddNewActionEvent(GameDungeonEvent.PrepareDugeon, PrepareDungeon);
         ActionEventHandler.AddNewActionEvent(GameDungeonEvent.StartDungeon, StartDungeon);
         ActionEventHandler.AddNewActionEvent(GameDungeonEvent.EndGame, EndLevel);
+        ActionEventHandler.AddNewActionEvent(GameDungeonEvent.LoseGame, LoseGame);
     }
     private void Update()
     {
@@ -64,6 +69,8 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 0.05f;
         Time.fixedDeltaTime = Time.timeScale / 0.02f;
 
+        audioSource.clip = null;
+
         // Slow motion action
         slowMotionEndLevelAction = () => {
             Time.timeScale = Mathf.Clamp(Time.timeScale + (1f / 3f) * Time.unscaledDeltaTime, 0f, 1f);
@@ -75,6 +82,7 @@ public class LevelManager : MonoBehaviour
             slowMotionEndLevelAction = null;
             var spawnPosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2));
             spawnPosition.z = 0f;
+            // Victory pop up
             pfWinPopup = Instantiate(pfWinPopup, spawnPosition, Quaternion.identity);
             pfWinPopup.transform.DOScale(0f, 0f);
             pfWinPopup.transform.DOScale(1f, 0.5f);
@@ -84,5 +92,10 @@ public class LevelManager : MonoBehaviour
         TimeManipulator.GetInstance().InvokeActionAfterSeconds(6f, () => {
             uiHandler.showResult(true);
         });
+    }
+
+    private void LoseGame()
+    {
+        
     }
 }

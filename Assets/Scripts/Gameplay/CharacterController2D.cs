@@ -7,6 +7,11 @@ public class CharacterController2D : MonoBehaviour
     private const float _MOVESPEED = 10f;
 
     [SerializeField] private LayerMask dashLayerMask;
+    [SerializeField]
+    private AudioSource effectAudioSource;
+    [SerializeField]
+    private AudioClip moveAudioClip;
+
 
     private Rigidbody2D playerRB2D;
     private SpriteRenderer spriteRenderer;
@@ -61,10 +66,19 @@ public class CharacterController2D : MonoBehaviour
 
         if (moveDirection != Vector3.zero)
         {
+            if(effectAudioSource.clip != moveAudioClip)
+            {
+                effectAudioSource.clip = moveAudioClip;
+                effectAudioSource.Play();
+            }
             animator.SetBool("isRunning", true);
         }
         else
         {
+            if (effectAudioSource.clip == moveAudioClip)
+            {
+                effectAudioSource.clip = null;
+            }
             animator.SetBool("isRunning", false);
         }
 

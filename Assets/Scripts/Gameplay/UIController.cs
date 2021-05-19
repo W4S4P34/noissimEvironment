@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace noissimEnvironment.GameplayScene
@@ -108,6 +109,11 @@ namespace noissimEnvironment.GameplayScene
             gradient.SetKeys(colorKey, alphaKey);
 
             bulletItemSizeBg.DOGradientColor(gradient, 0.5f);
+
+            GameObject bulletItemObject = (GameObject)param[2];
+            bulletItemObject.transform.DOScale(0f, 0.5f);
+            bulletItemObject.transform.DOMove(Camera.main.ScreenToWorldPoint(bulletItemSizeBg.transform.position), 0.5f);
+            Destroy(bulletItemObject, 2f);
         }
 
         private void SwapBulletEvent(object[] param)
@@ -133,7 +139,7 @@ namespace noissimEnvironment.GameplayScene
         #endregion
 
         #region On click event methods
-        private void OnPauseClick()
+        public void OnPauseClick()
         {
             if (!pausePanel.activeSelf)
             {
@@ -151,10 +157,17 @@ namespace noissimEnvironment.GameplayScene
                     resumeText.DOFade(1f, 0.2f).SetEase(Ease.OutCubic).SetDelay(0.3f);
                     restartText.DOFade(1f, 0.2f).SetEase(Ease.OutCubic).SetDelay(0.45f);
 
+                    TimeManipulator.GetInstance().InvokeActionAfterSeconds(0.5f, () => {
+                        Time.timeScale = 0f;
+                        Time.fixedDeltaTime = 0f;
+                    });
                 });
             }
             else
             {
+                Time.timeScale = 1f;
+                Time.fixedDeltaTime = Time.unscaledDeltaTime;
+
                 dim.DOFade(0f, 0.5f).SetEase(Ease.OutCubic);
                 textPause.DOFade(0f, 0.2f).SetEase(Ease.OutCubic).SetDelay(0.2f);
                 TimeManipulator.GetInstance().InvokeActionAfterSeconds(0.25f, () =>
@@ -167,10 +180,17 @@ namespace noissimEnvironment.GameplayScene
                     resumeText.DOFade(0f, 0.2f).SetEase(Ease.OutCubic).SetDelay(0.3f);
                     exitText.DOFade(0f, 0.2f).SetEase(Ease.OutCubic).SetDelay(0.45f);
 
-                    TimeManipulator.GetInstance().InvokeActionAfterSeconds(0.5f, () => pausePanel.SetActive(false));
+                    TimeManipulator.GetInstance().InvokeActionAfterSeconds(0.5f, () => {
+                        pausePanel.SetActive(false);
+                    });
                 });
                 
             }
+        }
+
+        public void OnLobbyClick()
+        {
+            SceneManager.LoadScene("LobbyScene");
         }
         #endregion
     }
