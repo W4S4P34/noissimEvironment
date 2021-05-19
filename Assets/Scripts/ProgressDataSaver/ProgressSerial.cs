@@ -7,7 +7,7 @@ using System.IO;
 
 static class Constants
 {
-    public const String fileName = "/ProgressData.dat";
+    public const string fileName = "/ProgressData.dat";
 }
 
 public class ProgressSerial
@@ -15,12 +15,18 @@ public class ProgressSerial
     private long rubyToSave;
 
     public long RubyToSave
-    { get; set; }
+    { 
+        get { return rubyToSave; }
+        set { rubyToSave = value; }
+    }
 
     private long expToSave;
 
     public long ExpToSave
-    { get; set; }
+    {
+        get { return expToSave; }
+        set { expToSave = value; }
+    }
 
     public static ProgressSerial getInstance()
     {

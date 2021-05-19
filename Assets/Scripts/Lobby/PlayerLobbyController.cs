@@ -57,7 +57,8 @@ public class PlayerLobbyController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                SceneManager.LoadScene(1);
+                GameplayCounter.getInstance().restartCounter();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
         }
         else if (collision.gameObject.tag == "NPC")

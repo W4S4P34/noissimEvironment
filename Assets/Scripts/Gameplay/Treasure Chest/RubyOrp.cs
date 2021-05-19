@@ -36,6 +36,7 @@ public class RubyOrp : Item
     }
     public override void Consume()
     {
+        GameplayCounter.getInstance().addRuby();
         Destroy(gameObject);
     }
     #endregion

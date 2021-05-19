@@ -31,9 +31,8 @@ public class TreasureChest : MonoBehaviour
         for(int i = 0; i < numberOfItems; i++) {
             double rand = r.NextDouble() * 100;
 
-            for(int j = 0; j < listItem.Count; j++)
+            for (int j = 0; j < listItem.Count; j++)
             {
-                Debug.Log(temp[j] + "; " + temp[j + 1]);
                 if(rand > temp[j] && rand < temp[j + 1])
                 {
                     newList.Add(listItem[j]);

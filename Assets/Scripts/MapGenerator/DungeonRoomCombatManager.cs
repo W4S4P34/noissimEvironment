@@ -89,11 +89,22 @@ public class DungeonRoomCombatManager : MonoBehaviour
     {
         _NUMBER_ENEMIES_--;
 
+        Garbageinator boss = ((Enemy)sender).gameObject.GetComponent<Garbageinator>();
+        if (boss != null)
+        {
+            _NUMBER_ENEMIES_ = 0;
+
+            for (int i = 0, enemyListSize = enemies.Length; i < enemyListSize; i++)
+            {
+                if (enemies[i] == null) continue;
+                enemies[i].gameObject.SetActive(false);
+                enemyEvents[i].EnemyDie -= DungeonRoomCombatManager_EnemyDie;
+            }
+        }
+
         if (_NUMBER_ENEMIES_ == 0)
         {
             EndBattle();
-
-            entrance.gameObject.SetActive(true);
         }
 
         ((Enemy)sender).EnemyDie -= DungeonRoomCombatManager_EnemyDie;
@@ -148,6 +159,6 @@ public class DungeonRoomCombatManager : MonoBehaviour
 
     private void EndBattle()
     {
-        doors.SetActive(false);
+        doors.gameObject.SetActive(false);
     }
 }

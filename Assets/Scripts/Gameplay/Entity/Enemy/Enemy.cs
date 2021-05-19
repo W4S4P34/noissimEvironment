@@ -63,6 +63,8 @@ public abstract class Enemy : Entity
         base.OnDied();
         GetComponent<Collider2D>().enabled = false;
         EnemyDie?.Invoke(this, EventArgs.Empty);
+
+        GameplayCounter.getInstance().addMonster();
     }
 
 }

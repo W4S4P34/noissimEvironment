@@ -353,12 +353,12 @@ public class Garbageinator : Enemy
 
     protected override void OnDied()
     {
+        base.OnDied();
         isDeath = true;
         // Add animation death here
         animator?.SetTrigger("onDie");
         transform.position += offset;
         ActionEventHandler.Invoke(GameDungeonEvent.EndGame);
         TimeManipulator.GetInstance().InvokeActionAfterSeconds(3f, () => gameObject.SetActive(false));
-        
     }
 }

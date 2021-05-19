@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27b68ca8b5121c4492da8abc05b7ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropItemRate: 100
+  dropItemRate: 5
   eventTriggerRange: 0.5
   offset: {x: 1, y: 0, z: 0}
   sprite: {fileID: 21300000, guid: 5e84bc9aa9fe47545ab103cf58b76aa3, type: 3}

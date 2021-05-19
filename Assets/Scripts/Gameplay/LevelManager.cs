@@ -13,7 +13,16 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject pfWinPopup;
 
+    [SerializeField]
+    private GameObject resultPanel;
+    private GameplayUIHandler uiHandler;
+
     private Action slowMotionEndLevelAction;
+
+    private void Awake()
+    {
+        uiHandler = resultPanel.gameObject.GetComponent<GameplayUIHandler>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -55,14 +64,13 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 0.05f;
         Time.fixedDeltaTime = Time.timeScale / 0.02f;
 
-        // Victory pop up
-        
-
         // Slow motion action
         slowMotionEndLevelAction = () => {
             Time.timeScale = Mathf.Clamp(Time.timeScale + (1f / 3f) * Time.unscaledDeltaTime, 0f, 1f);
             Time.fixedDeltaTime = Time.unscaledDeltaTime;
         };
+
+        // Victory pop up
         TimeManipulator.GetInstance().InvokeActionAfterSeconds(3f, () => {
             slowMotionEndLevelAction = null;
             var spawnPosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2));
@@ -70,6 +78,11 @@ public class LevelManager : MonoBehaviour
             pfWinPopup = Instantiate(pfWinPopup, spawnPosition, Quaternion.identity);
             pfWinPopup.transform.DOScale(0f, 0f);
             pfWinPopup.transform.DOScale(1f, 0.5f);
+        });
+
+        // Open result panel
+        TimeManipulator.GetInstance().InvokeActionAfterSeconds(6f, () => {
+            uiHandler.showResult(true);
         });
     }
 }

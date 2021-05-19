@@ -183,6 +183,7 @@ public class PlayerCombat : Entity
     protected override void OnDied()
     {
         isDeath = true;
+        ActionEventHandler.Invoke(GameDungeonEvent.EndGame);
         gameObject.SetActive(false);
     }
     #endregion
