@@ -96,6 +96,9 @@ public class LevelManager : MonoBehaviour
 
     private void LoseGame()
     {
-        
+        // Open result panel
+        TimeManipulator.GetInstance().InvokeActionAfterSeconds(2f, () => {
+            uiHandler.showResult(false);
+        });
     }
 }

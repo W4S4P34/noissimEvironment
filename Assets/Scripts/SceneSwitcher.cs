@@ -7,6 +7,8 @@ public class SceneSwitcher : MonoBehaviour
 {
     [SerializeField]
     GameObject exitPanel;
+    [SerializeField]
+    private GameObject settingPanel;
 
     public void continueGame()
     {
@@ -59,5 +61,15 @@ public class SceneSwitcher : MonoBehaviour
         {
             exitPanel.SetActive(false);
         }
+    }
+
+    public void onClickSetting()
+    {
+        settingPanel.SetActive(true);
+    }
+
+    public void onCloseSetting()
+    {
+        settingPanel.SetActive(false);
     }
 }
