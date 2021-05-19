@@ -15,13 +15,16 @@ public class PlayerLobbyController : MonoBehaviour
     private GameObject NPCName;
 
     [Space(10)]
-    [Header("Player EXP")]
+    [Header("Player Data")]
     [SerializeField]
     private TextMeshProUGUI playerLevel;
     [SerializeField]
     private TextMeshProUGUI playerEXPProgess;
+    [SerializeField]
+    private TextMeshProUGUI playerRuby;
 
     protected CharacterLevel characterLvl;
+    protected ProgressSerial progressSerial;
     [SerializeField]
     protected GameObject uiControllerGameObject;
     private UIController uiController;
@@ -32,6 +35,7 @@ public class PlayerLobbyController : MonoBehaviour
         NPCName.SetActive(false);
 
         characterLvl = new CharacterLevel();
+        progressSerial = ProgressSerial.getInstance();
     }
 
     private void Awake()
@@ -92,6 +96,9 @@ public class PlayerLobbyController : MonoBehaviour
         double percentage = level - levelDisplayText;
         int percentageDisplayText = (int) (percentage * 100f);
         playerEXPProgess.SetText(percentageDisplayText.ToString() + "%/100%");
+
+        long ruby = progressSerial.RubyToSave;
+        playerRuby.SetText(ruby.ToString());
     }
 }
 

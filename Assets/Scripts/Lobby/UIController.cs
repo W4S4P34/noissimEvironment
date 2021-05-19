@@ -67,6 +67,11 @@ namespace noissimEnvironment.LobbyScene
         [SerializeField]
         private GameObject playerEXPPanel = null;
 
+        [Space(10)]
+        [Header("Panel Player Ruby")]
+        [SerializeField]
+        private GameObject playerRubyPanel = null;
+
         // Start is called before the first frame update
         void Start()
         {
