@@ -359,6 +359,5 @@ public class Garbageinator : Enemy
         animator?.SetTrigger("onDie");
         transform.position += offset;
         ActionEventHandler.Invoke(GameDungeonEvent.EndGame);
-        TimeManipulator.GetInstance().InvokeActionAfterSeconds(3f, () => gameObject.SetActive(false));
     }
 }

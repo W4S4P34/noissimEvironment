@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d9dd1c14940794bb59ced9a96ab388, type: 3}
   m_Name: KuornosBulletStat
   m_EditorClassIdentifier: 
-  damage: 25
+  damage: 500
   repulsiveForce: 0
   projectileSpeed: 50
   exceptionTag:

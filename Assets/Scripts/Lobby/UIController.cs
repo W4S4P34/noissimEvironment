@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 namespace noissimEnvironment.LobbyScene
 {
@@ -123,6 +124,7 @@ namespace noissimEnvironment.LobbyScene
                 pausePanel.SetActive(true);
                 skillPanel.SetActive(false);
                 playerEXPPanel.SetActive(false);
+                playerRubyPanel.SetActive(false);
 
                 dim.DOFade(1f, 0.5f).SetEase(Ease.OutCubic);
                 textPause.DOFade(1f, 0.2f).SetEase(Ease.OutCubic).SetDelay(0.2f);
@@ -141,6 +143,8 @@ namespace noissimEnvironment.LobbyScene
             else
             {
                 playerEXPPanel.SetActive(true);
+                playerRubyPanel.SetActive(true);
+
                 dim.DOFade(0f, 0.5f).SetEase(Ease.OutCubic);
                 textPause.DOFade(0f, 0.2f).SetEase(Ease.OutCubic).SetDelay(0.2f);
                 TimeManipulator.GetInstance().InvokeActionAfterSeconds(0.25f, () =>
@@ -257,7 +261,7 @@ namespace noissimEnvironment.LobbyScene
 
         public void OnClick_Exit()
         {
-
+            SceneManager.LoadScene("StartMenu");
         }
     }
 }

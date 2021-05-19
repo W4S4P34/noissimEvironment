@@ -47,6 +47,10 @@ namespace noissimEnvironment.GameplayScene
         [SerializeField]
         private Image [] skillBackground;
 
+        [Header("Setting Panel")]
+        [SerializeField]
+        private GameObject settingPanel;
+
         #region Monobehaviour Methods
         // Start is called before the first frame update
         void Start()
@@ -191,6 +195,16 @@ namespace noissimEnvironment.GameplayScene
         public void OnLobbyClick()
         {
             SceneManager.LoadScene("LobbyScene");
+        }
+
+        public void OnClickSetting()
+        {
+            settingPanel.SetActive(true);
+        }
+
+        public void OnCloseSetting()
+        {
+            settingPanel.SetActive(false);
         }
         #endregion
     }
